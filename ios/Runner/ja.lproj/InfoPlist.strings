@@ -1,0 +1,3 @@
+/* App name - Japanese */
+CFBundleDisplayName = "CS 数独";
+CFBundleName = "CS 数独";

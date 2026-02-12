@@ -1,0 +1,3 @@
+/* App name - default (English) */
+CFBundleDisplayName = "CS Sudoku";
+CFBundleName = "CS Sudoku";
