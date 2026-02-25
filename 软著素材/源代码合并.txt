@@ -1,0 +1,4239 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import 'app_localizations_ar.dart';
+import 'app_localizations_bn.dart';
+import 'app_localizations_de.dart';
+import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
+import 'app_localizations_fr.dart';
+import 'app_localizations_hi.dart';
+import 'app_localizations_id.dart';
+import 'app_localizations_it.dart';
+import 'app_localizations_ja.dart';
+import 'app_localizations_ko.dart';
+import 'app_localizations_pt.dart';
+import 'app_localizations_ru.dart';
+import 'app_localizations_th.dart';
+import 'app_localizations_tr.dart';
+import 'app_localizations_ur.dart';
+import 'app_localizations_vi.dart';
+import 'app_localizations_zh.dart';
+
+/// 全球前18名语言（按使用人数）
+const List<String> _supportedLanguageCodes = [
+  'en', 'zh', 'hi', 'es', 'ar', 'fr', 'bn', 'pt', 'ru', 'id',
+  'ur', 'de', 'ja', 'vi', 'tr', 'ko', 'it', 'th',
+];
+
+abstract class AppLocalizations {
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
+
+  static final Map<String, AppLocalizations> _localizations = {
+    'en': AppLocalizationsEn(),
+    'zh': AppLocalizationsZh(),
+    'hi': AppLocalizationsHi(),
+    'es': AppLocalizationsEs(),
+    'ar': AppLocalizationsAr(),
+    'fr': AppLocalizationsFr(),
+    'bn': AppLocalizationsBn(),
+    'pt': AppLocalizationsPt(),
+    'ru': AppLocalizationsRu(),
+    'id': AppLocalizationsId(),
+    'ur': AppLocalizationsUr(),
+    'de': AppLocalizationsDe(),
+    'ja': AppLocalizationsJa(),
+    'vi': AppLocalizationsVi(),
+    'tr': AppLocalizationsTr(),
+    'ko': AppLocalizationsKo(),
+    'it': AppLocalizationsIt(),
+    'th': AppLocalizationsTh(),
+  };
+
+  static AppLocalizations get(String locale) {
+    final code = locale.split('-').first.toLowerCase();
+    if (code == 'zh') return _localizations['zh']!;
+    return _localizations[code] ?? _localizations['en']!;
+  }
+
+  // 通用
+  String get appTitle;
+  String get sudoku;
+  String get loading;
+
+  // 首页
+  String get slogan;
+  String get freeMode;
+  String get campaignMode;
+  String get rulesTitle;
+
+  // 规则说明
+  String get rulesGoal;
+  String get rulesGoalDesc;
+  String get rulesBasic;
+  String get rulesBasicItems;
+  String get rulesOps;
+  String get rulesOpsItems;
+  String get rulesGotIt;
+
+  // 游戏（带参数）
+  String level(int n) => levelFormat.replaceAll('%s', n.toString());
+  String errors(int count, int max) =>
+      errorsFormat.replaceFirst('%s', count.toString()).replaceFirst('%s', max.toString());
+  String gameOverDescFormatted(int max, String time) =>
+      gameOverDesc.replaceFirst('%s', max.toString()).replaceFirst('%s', time);
+  String congratsDescFormatted(String time) =>
+      congratsDesc.replaceFirst('%s', time);
+  String startLevelFormatted(int n) => startLevel.replaceAll('%s', n.toString());
+  String unlockedToFormatted(int n) => unlockedTo.replaceFirst('%s', n.toString());
+  String unlockedToClickToStartFormatted(int n) =>
+      unlockedToClickToStart.replaceFirst('%s', n.toString());
+
+  String get levelFormat;
+  String get errorsFormat;
+  String get gameOver;
+  String get gameOverDesc;
+  String get startLevel;
+  String get unlockedTo;
+  String get back;
+  String get retry;
+  String get congrats;
+  String get congratsDesc;
+  String get confirm;
+  String get nextLevel;
+  String get newGame;
+  String get selectDifficulty;
+  String get difficultyEasy;
+  String get difficultyMedium;
+  String get difficultyHard;
+  String get replayLevel;
+  String get difficulty;
+
+  // 闯关
+  String get campaignTitle;
+  String get campaignSubtitle;
+  String get modeEasy;
+  String get modeMedium;
+  String get modeHard;
+  String get modeLevels;
+  String get clickToStart;
+  String get unlockedToClickToStart;
+}
+
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) =>
+      _supportedLanguageCodes.contains(locale.languageCode.toLowerCase());
+
+  @override
+  Future<AppLocalizations> load(Locale locale) async =>
+      SynchronousFuture<AppLocalizations>(AppLocalizations.get(locale.languageCode));
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsAr extends AppLocalizations {
+  @override
+  String get appTitle => 'CS سودوكو';
+
+  @override
+  String get sudoku => 'سودوكو';
+
+  @override
+  String get loading => 'جاري التحميل...';
+
+  @override
+  String get slogan => 'لعبة المنطق الرقمية الكلاسيكية';
+
+  @override
+  String get freeMode => 'اللعب الحر';
+
+  @override
+  String get campaignMode => 'الحملة';
+
+  @override
+  String get rulesTitle => 'قواعد السودوكو';
+
+  @override
+  String get rulesGoal => 'الهدف';
+
+  @override
+  String get rulesGoalDesc =>
+      'املأ شبكة 9×9 بالأرقام من 1 إلى 9 بحيث يحتوي كل صف وعمود ومربع 3×3 '
+      'على كل رقم مرة واحدة بالضبط.';
+
+  @override
+  String get rulesBasic => 'القواعد';
+
+  @override
+  String get rulesBasicItems =>
+      '• لا تكرار في كل صف\n'
+      '• لا تكرار في كل عمود\n'
+      '• لا تكرار في كل مربع 3×3\n'
+      '• الأرقام المعطاة لا يمكن تغييرها';
+
+  @override
+  String get rulesOps => 'كيفية اللعب';
+
+  @override
+  String get rulesOpsItems =>
+      '• انقر على خلية للتحديد، ثم انقر على رقم للتعبئة\n'
+      '• ردود فعل فورية: أخضر = صحيح، أحمر = خطأ\n'
+      '• وضع الحملة له حد 10 أخطاء';
+
+  @override
+  String get rulesGotIt => 'فهمت';
+
+  @override
+  String get levelFormat => 'المستوى %s';
+
+  @override
+  String get errorsFormat => 'الأخطاء: %s/%s';
+
+  @override
+  String get gameOver => 'انتهت اللعبة';
+
+  @override
+  String get gameOverDesc => 'وصلت إلى %s أخطاء. الوقت: %s';
+
+  @override
+  String get back => 'رجوع';
+
+  @override
+  String get retry => 'إعادة المحاولة';
+
+  @override
+  String get congrats => 'تهانينا!';
+
+  @override
+  String get congratsDesc => 'أكملت في %s!';
+
+  @override
+  String get confirm => 'موافق';
+
+  @override
+  String get nextLevel => 'التالي';
+
+  @override
+  String get newGame => 'لعبة جديدة';
+
+  @override
+  String get selectDifficulty => 'اختر الصعوبة';
+
+  @override
+  String get difficultyEasy => 'سهل';
+
+  @override
+  String get difficultyMedium => 'متوسط';
+
+  @override
+  String get difficultyHard => 'صعب';
+
+  @override
+  String get replayLevel => 'إعادة اللعب';
+
+  @override
+  String get difficulty => 'الصعوبة';
+
+  @override
+  String get campaignTitle => 'الحملة';
+
+  @override
+  String get campaignSubtitle => '999 مستوى، تزداد الصعوبة كل 9 مستويات';
+
+  @override
+  String get modeEasy => 'سهل';
+
+  @override
+  String get modeMedium => 'متوسط';
+
+  @override
+  String get modeHard => 'صعب';
+
+  @override
+  String get modeLevels => '999 مستوى';
+
+  @override
+  String get startLevel => 'بدء المستوى %s';
+
+  @override
+  String get unlockedTo => 'مفتوح حتى المستوى %s';
+
+  @override
+  String get clickToStart => 'انقر للبدء';
+
+  @override
+  String get unlockedToClickToStart => 'مفتوح حتى المستوى %s. انقر للبدء';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsBn extends AppLocalizations {
+  @override
+  String get appTitle => 'CS সুডোকু';
+
+  @override
+  String get sudoku => 'সুডোকু';
+
+  @override
+  String get loading => 'লোড হচ্ছে...';
+
+  @override
+  String get slogan => 'ক্লাসিক সংখ্যা লজিক গেম';
+
+  @override
+  String get freeMode => 'ফ্রি প্লে';
+
+  @override
+  String get campaignMode => 'ক্যাম্পেইন';
+
+  @override
+  String get rulesTitle => 'সুডোকু নিয়ম';
+
+  @override
+  String get rulesGoal => 'লক্ষ্য';
+
+  @override
+  String get rulesGoalDesc =>
+      '৯×৯ গ্রিডে ১-৯ সংখ্যা দিয়ে পূরণ করুন যাতে প্রতিটি সারি, কলাম এবং '
+      '৩×৩ বক্সে প্রতিটি সংখ্যা ঠিক একবার থাকে।';
+
+  @override
+  String get rulesBasic => 'নিয়ম';
+
+  @override
+  String get rulesBasicItems =>
+      '• প্রতিটি সারিতে পুনরাবৃত্তি নেই\n'
+      '• প্রতিটি কলামে পুনরাবৃত্তি নেই\n'
+      '• প্রতিটি ৩×৩ বক্সে পুনরাবৃত্তি নেই\n'
+      '• দেওয়া সংখ্যা পরিবর্তন করা যাবে না';
+
+  @override
+  String get rulesOps => 'কিভাবে খেলবেন';
+
+  @override
+  String get rulesOpsItems =>
+      '• নির্বাচন করতে একটি সেল ট্যাপ করুন, তারপর পূরণ করতে একটি সংখ্যা ট্যাপ করুন\n'
+      '• তাৎক্ষণিক প্রতিক্রিয়া: সবুজ = সঠিক, লাল = ভুল\n'
+      '• ক্যাম্পেইন মোডে ১০টি ভুলের সীমা';
+
+  @override
+  String get rulesGotIt => 'বুঝেছি';
+
+  @override
+  String get levelFormat => 'লেভেল %s';
+
+  @override
+  String get errorsFormat => 'ভুল: %s/%s';
+
+  @override
+  String get gameOver => 'গেম ওভার';
+
+  @override
+  String get gameOverDesc => 'আপনি %sটি ভুল করেছেন। সময়: %s';
+
+  @override
+  String get back => 'পিছনে';
+
+  @override
+  String get retry => 'আবার চেষ্টা করুন';
+
+  @override
+  String get congrats => 'অভিনন্দন!';
+
+  @override
+  String get congratsDesc => '%s এ সম্পন্ন!';
+
+  @override
+  String get confirm => 'ঠিক আছে';
+
+  @override
+  String get nextLevel => 'পরবর্তী';
+
+  @override
+  String get newGame => 'নতুন গেম';
+
+  @override
+  String get selectDifficulty => 'কঠিনতা নির্বাচন করুন';
+
+  @override
+  String get difficultyEasy => 'সহজ';
+
+  @override
+  String get difficultyMedium => 'মাঝারি';
+
+  @override
+  String get difficultyHard => 'কঠিন';
+
+  @override
+  String get replayLevel => 'পুনরায় খেলুন';
+
+  @override
+  String get difficulty => 'কঠিনতা';
+
+  @override
+  String get campaignTitle => 'ক্যাম্পেইন';
+
+  @override
+  String get campaignSubtitle => '৯৯৯ লেভেল, প্রতি ৯ লেভেলে কঠিনতা বাড়ে';
+
+  @override
+  String get modeEasy => 'সহজ';
+
+  @override
+  String get modeMedium => 'মাঝারি';
+
+  @override
+  String get modeHard => 'কঠিন';
+
+  @override
+  String get modeLevels => '৯৯৯ লেভেল';
+
+  @override
+  String get startLevel => 'লেভেল %s শুরু করুন';
+
+  @override
+  String get unlockedTo => 'লেভেল %s পর্যন্ত আনলক';
+
+  @override
+  String get clickToStart => 'শুরু করতে ট্যাপ করুন';
+
+  @override
+  String get unlockedToClickToStart => 'লেভেল %s পর্যন্ত আনলক। শুরু করতে ট্যাপ করুন';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsDe extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Laden...';
+
+  @override
+  String get slogan => 'Klassisches Zahlenlogik-Spiel';
+
+  @override
+  String get freeMode => 'Freies Spiel';
+
+  @override
+  String get campaignMode => 'Kampagne';
+
+  @override
+  String get rulesTitle => 'Sudoku-Regeln';
+
+  @override
+  String get rulesGoal => 'Ziel';
+
+  @override
+  String get rulesGoalDesc =>
+      'Füllen Sie das 9×9-Raster mit den Ziffern 1–9, sodass jede Zeile, '
+      'Spalte und jedes 3×3-Feld jede Zahl genau einmal enthält.';
+
+  @override
+  String get rulesBasic => 'Regeln';
+
+  @override
+  String get rulesBasicItems =>
+      '• Keine Wiederholungen in jeder Zeile\n'
+      '• Keine Wiederholungen in jeder Spalte\n'
+      '• Keine Wiederholungen in jedem 3×3-Feld\n'
+      '• Vorgegebene Zahlen können nicht geändert werden';
+
+  @override
+  String get rulesOps => 'Spielanleitung';
+
+  @override
+  String get rulesOpsItems =>
+      '• Tippen Sie auf eine Zelle zur Auswahl, dann auf eine Zahl zum Ausfüllen\n'
+      '• Sofortiges Feedback: Grün = richtig, Rot = falsch\n'
+      '• Kampagnenmodus hat ein Limit von 10 Fehlern';
+
+  @override
+  String get rulesGotIt => 'Verstanden';
+
+  @override
+  String get levelFormat => 'Level %s';
+
+  @override
+  String get errorsFormat => 'Fehler: %s/%s';
+
+  @override
+  String get gameOver => 'Spiel vorbei';
+
+  @override
+  String get gameOverDesc => 'Sie haben %s Fehler erreicht. Zeit: %s';
+
+  @override
+  String get back => 'Zurück';
+
+  @override
+  String get retry => 'Erneut versuchen';
+
+  @override
+  String get congrats => 'Herzlichen Glückwunsch!';
+
+  @override
+  String get congratsDesc => 'Abgeschlossen in %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Weiter';
+
+  @override
+  String get newGame => 'Neues Spiel';
+
+  @override
+  String get selectDifficulty => 'Schwierigkeit wählen';
+
+  @override
+  String get difficultyEasy => 'Einfach';
+
+  @override
+  String get difficultyMedium => 'Mittel';
+
+  @override
+  String get difficultyHard => 'Schwer';
+
+  @override
+  String get replayLevel => 'Wiederholen';
+
+  @override
+  String get difficulty => 'Schwierigkeit';
+
+  @override
+  String get campaignTitle => 'Kampagne';
+
+  @override
+  String get campaignSubtitle => '999 Level, Schwierigkeit steigt alle 9 Level';
+
+  @override
+  String get modeEasy => 'Einfach';
+
+  @override
+  String get modeMedium => 'Mittel';
+
+  @override
+  String get modeHard => 'Schwer';
+
+  @override
+  String get modeLevels => '999 Level';
+
+  @override
+  String get startLevel => 'Level %s starten';
+
+  @override
+  String get unlockedTo => 'Freigeschaltet bis Level %s';
+
+  @override
+  String get clickToStart => 'Tippen zum Starten';
+
+  @override
+  String get unlockedToClickToStart => 'Freigeschaltet bis Level %s. Tippen zum Starten';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsEn extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Loading...';
+
+  @override
+  String get slogan => 'Classic Number Logic Game';
+
+  @override
+  String get freeMode => 'Free Play';
+
+  @override
+  String get campaignMode => 'Campaign';
+
+  @override
+  String get rulesTitle => 'Sudoku Rules';
+
+  @override
+  String get rulesGoal => 'Goal';
+
+  @override
+  String get rulesGoalDesc =>
+      'Fill the 9×9 grid with digits 1–9 so that each row, column, '
+      'and 3×3 box contains each number exactly once.';
+
+  @override
+  String get rulesBasic => 'Rules';
+
+  @override
+  String get rulesBasicItems =>
+      '• No repeats in each row\n'
+      '• No repeats in each column\n'
+      '• No repeats in each 3×3 box\n'
+      '• Given numbers cannot be changed';
+
+  @override
+  String get rulesOps => 'How to Play';
+
+  @override
+  String get rulesOpsItems =>
+      '• Tap a cell to select, then tap a number to fill\n'
+      '• Instant feedback: green = correct, red = wrong\n'
+      '• Campaign mode has a 10-error limit';
+
+  @override
+  String get rulesGotIt => 'Got it';
+
+  @override
+  String get levelFormat => 'Level %s';
+
+  @override
+  String get errorsFormat => 'Errors: %s/%s';
+
+  @override
+  String get gameOver => 'Game Over';
+
+  @override
+  String get gameOverDesc => 'You reached %s errors. Time: %s';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get congrats => 'Congratulations!';
+
+  @override
+  String get congratsDesc => 'Completed in %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Next';
+
+  @override
+  String get newGame => 'New Game';
+
+  @override
+  String get selectDifficulty => 'Select Difficulty';
+
+  @override
+  String get difficultyEasy => 'Easy';
+
+  @override
+  String get difficultyMedium => 'Medium';
+
+  @override
+  String get difficultyHard => 'Hard';
+
+  @override
+  String get replayLevel => 'Replay';
+
+  @override
+  String get difficulty => 'Difficulty';
+
+  @override
+  String get campaignTitle => 'Campaign';
+
+  @override
+  String get campaignSubtitle => '999 levels, difficulty increases every 9 levels';
+
+  @override
+  String get modeEasy => 'Easy';
+
+  @override
+  String get modeMedium => 'Medium';
+
+  @override
+  String get modeHard => 'Hard';
+
+  @override
+  String get modeLevels => '999 levels';
+
+  @override
+  String get startLevel => 'Start Level %s';
+
+  @override
+  String get unlockedTo => 'Unlocked to Level %s';
+
+  @override
+  String get clickToStart => 'Tap to start';
+
+  @override
+  String get unlockedToClickToStart => 'Unlocked to Level %s. Tap to start';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsEs extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Cargando...';
+
+  @override
+  String get slogan => 'Juego clásico de lógica numérica';
+
+  @override
+  String get freeMode => 'Juego libre';
+
+  @override
+  String get campaignMode => 'Campaña';
+
+  @override
+  String get rulesTitle => 'Reglas del Sudoku';
+
+  @override
+  String get rulesGoal => 'Objetivo';
+
+  @override
+  String get rulesGoalDesc =>
+      'Completa la cuadrícula 9×9 con dígitos del 1 al 9 de modo que cada fila, '
+      'columna y caja 3×3 contenga cada número exactamente una vez.';
+
+  @override
+  String get rulesBasic => 'Reglas';
+
+  @override
+  String get rulesBasicItems =>
+      '• Sin repeticiones en cada fila\n'
+      '• Sin repeticiones en cada columna\n'
+      '• Sin repeticiones en cada caja 3×3\n'
+      '• Los números dados no se pueden cambiar';
+
+  @override
+  String get rulesOps => 'Cómo jugar';
+
+  @override
+  String get rulesOpsItems =>
+      '• Toca una celda para seleccionar, luego toca un número para rellenar\n'
+      '• Retroalimentación instantánea: verde = correcto, rojo = incorrecto\n'
+      '• El modo campaña tiene un límite de 10 errores';
+
+  @override
+  String get rulesGotIt => 'Entendido';
+
+  @override
+  String get levelFormat => 'Nivel %s';
+
+  @override
+  String get errorsFormat => 'Errores: %s/%s';
+
+  @override
+  String get gameOver => 'Fin del juego';
+
+  @override
+  String get gameOverDesc => 'Alcanzaste %s errores. Tiempo: %s';
+
+  @override
+  String get back => 'Atrás';
+
+  @override
+  String get retry => 'Reintentar';
+
+  @override
+  String get congrats => '¡Felicitaciones!';
+
+  @override
+  String get congratsDesc => '¡Completado en %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Siguiente';
+
+  @override
+  String get newGame => 'Nueva partida';
+
+  @override
+  String get selectDifficulty => 'Seleccionar dificultad';
+
+  @override
+  String get difficultyEasy => 'Fácil';
+
+  @override
+  String get difficultyMedium => 'Medio';
+
+  @override
+  String get difficultyHard => 'Difícil';
+
+  @override
+  String get replayLevel => 'Repetir';
+
+  @override
+  String get difficulty => 'Dificultad';
+
+  @override
+  String get campaignTitle => 'Campaña';
+
+  @override
+  String get campaignSubtitle => '999 niveles, la dificultad aumenta cada 9 niveles';
+
+  @override
+  String get modeEasy => 'Fácil';
+
+  @override
+  String get modeMedium => 'Medio';
+
+  @override
+  String get modeHard => 'Difícil';
+
+  @override
+  String get modeLevels => '999 niveles';
+
+  @override
+  String get startLevel => 'Iniciar nivel %s';
+
+  @override
+  String get unlockedTo => 'Desbloqueado hasta el nivel %s';
+
+  @override
+  String get clickToStart => 'Toca para comenzar';
+
+  @override
+  String get unlockedToClickToStart => 'Desbloqueado hasta el nivel %s. Toca para comenzar';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsFr extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Chargement...';
+
+  @override
+  String get slogan => 'Jeu classique de logique numérique';
+
+  @override
+  String get freeMode => 'Partie libre';
+
+  @override
+  String get campaignMode => 'Campagne';
+
+  @override
+  String get rulesTitle => 'Règles du Sudoku';
+
+  @override
+  String get rulesGoal => 'Objectif';
+
+  @override
+  String get rulesGoalDesc =>
+      'Remplissez la grille 9×9 avec les chiffres de 1 à 9 pour que chaque ligne, '
+      'colonne et bloc 3×3 contienne chaque nombre exactement une fois.';
+
+  @override
+  String get rulesBasic => 'Règles';
+
+  @override
+  String get rulesBasicItems =>
+      '• Pas de répétition dans chaque ligne\n'
+      '• Pas de répétition dans chaque colonne\n'
+      '• Pas de répétition dans chaque bloc 3×3\n'
+      '• Les chiffres donnés ne peuvent pas être modifiés';
+
+  @override
+  String get rulesOps => 'Comment jouer';
+
+  @override
+  String get rulesOpsItems =>
+      '• Appuyez sur une cellule pour sélectionner, puis sur un chiffre pour remplir\n'
+      '• Retour instantané : vert = correct, rouge = incorrect\n'
+      '• Le mode campagne a une limite de 10 erreurs';
+
+  @override
+  String get rulesGotIt => 'Compris';
+
+  @override
+  String get levelFormat => 'Niveau %s';
+
+  @override
+  String get errorsFormat => 'Erreurs : %s/%s';
+
+  @override
+  String get gameOver => 'Fin de partie';
+
+  @override
+  String get gameOverDesc => 'Vous avez atteint %s erreurs. Temps : %s';
+
+  @override
+  String get back => 'Retour';
+
+  @override
+  String get retry => 'Réessayer';
+
+  @override
+  String get congrats => 'Félicitations !';
+
+  @override
+  String get congratsDesc => 'Terminé en %s !';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Suivant';
+
+  @override
+  String get newGame => 'Nouvelle partie';
+
+  @override
+  String get selectDifficulty => 'Choisir la difficulté';
+
+  @override
+  String get difficultyEasy => 'Facile';
+
+  @override
+  String get difficultyMedium => 'Moyen';
+
+  @override
+  String get difficultyHard => 'Difficile';
+
+  @override
+  String get replayLevel => 'Rejouer';
+
+  @override
+  String get difficulty => 'Difficulté';
+
+  @override
+  String get campaignTitle => 'Campagne';
+
+  @override
+  String get campaignSubtitle => '999 niveaux, difficulté croissante tous les 9 niveaux';
+
+  @override
+  String get modeEasy => 'Facile';
+
+  @override
+  String get modeMedium => 'Moyen';
+
+  @override
+  String get modeHard => 'Difficile';
+
+  @override
+  String get modeLevels => '999 niveaux';
+
+  @override
+  String get startLevel => 'Commencer le niveau %s';
+
+  @override
+  String get unlockedTo => 'Débloqué jusqu\'au niveau %s';
+
+  @override
+  String get clickToStart => 'Appuyez pour commencer';
+
+  @override
+  String get unlockedToClickToStart => 'Débloqué jusqu\'au niveau %s. Appuyez pour commencer';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsHi extends AppLocalizations {
+  @override
+  String get appTitle => 'CS सुडोकू';
+
+  @override
+  String get sudoku => 'सुडोकू';
+
+  @override
+  String get loading => 'लोड हो रहा है...';
+
+  @override
+  String get slogan => 'क्लासिक नंबर लॉजिक गेम';
+
+  @override
+  String get freeMode => 'फ्री प्ले';
+
+  @override
+  String get campaignMode => 'कैंपेन';
+
+  @override
+  String get rulesTitle => 'सुडोकू नियम';
+
+  @override
+  String get rulesGoal => 'लक्ष्य';
+
+  @override
+  String get rulesGoalDesc =>
+      '9×9 ग्रिड को 1-9 अंकों से भरें ताकि प्रत्येक पंक्ति, स्तंभ और '
+      '3×3 बॉक्स में प्रत्येक संख्या बिल्कुल एक बार आए।';
+
+  @override
+  String get rulesBasic => 'नियम';
+
+  @override
+  String get rulesBasicItems =>
+      '• प्रत्येक पंक्ति में दोहराव नहीं\n'
+      '• प्रत्येक स्तंभ में दोहराव नहीं\n'
+      '• प्रत्येक 3×3 बॉक्स में दोहराव नहीं\n'
+      '• दिए गए अंक बदले नहीं जा सकते';
+
+  @override
+  String get rulesOps => 'कैसे खेलें';
+
+  @override
+  String get rulesOpsItems =>
+      '• सेल चुनने के लिए टैप करें, फिर भरने के लिए अंक टैप करें\n'
+      '• तुरंत फीडबैक: हरा = सही, लाल = गलत\n'
+      '• कैंपेन मोड में 10 गलतियों की सीमा';
+
+  @override
+  String get rulesGotIt => 'समझ गया';
+
+  @override
+  String get levelFormat => 'स्तर %s';
+
+  @override
+  String get errorsFormat => 'गलतियाँ: %s/%s';
+
+  @override
+  String get gameOver => 'गेम ओवर';
+
+  @override
+  String get gameOverDesc => 'आपने %s गलतियाँ पूरी कीं। समय: %s';
+
+  @override
+  String get back => 'वापस';
+
+  @override
+  String get retry => 'पुनः प्रयास';
+
+  @override
+  String get congrats => 'बधाई हो!';
+
+  @override
+  String get congratsDesc => '%s में पूर्ण!';
+
+  @override
+  String get confirm => 'ठीक है';
+
+  @override
+  String get nextLevel => 'अगला';
+
+  @override
+  String get newGame => 'नया गेम';
+
+  @override
+  String get selectDifficulty => 'कठिनाई चुनें';
+
+  @override
+  String get difficultyEasy => 'आसान';
+
+  @override
+  String get difficultyMedium => 'मध्यम';
+
+  @override
+  String get difficultyHard => 'कठिन';
+
+  @override
+  String get replayLevel => 'दोबारा खेलें';
+
+  @override
+  String get difficulty => 'कठिनाई';
+
+  @override
+  String get campaignTitle => 'कैंपेन';
+
+  @override
+  String get campaignSubtitle => '999 स्तर, हर 9 स्तर पर कठिनाई बढ़ती है';
+
+  @override
+  String get modeEasy => 'आसान';
+
+  @override
+  String get modeMedium => 'मध्यम';
+
+  @override
+  String get modeHard => 'कठिन';
+
+  @override
+  String get modeLevels => '999 स्तर';
+
+  @override
+  String get startLevel => 'स्तर %s शुरू करें';
+
+  @override
+  String get unlockedTo => 'स्तर %s तक अनलॉक';
+
+  @override
+  String get clickToStart => 'शुरू करने के लिए टैप करें';
+
+  @override
+  String get unlockedToClickToStart => 'स्तर %s तक अनलॉक। शुरू करने के लिए टैप करें';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsId extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Memuat...';
+
+  @override
+  String get slogan => 'Permainan logika angka klasik';
+
+  @override
+  String get freeMode => 'Main bebas';
+
+  @override
+  String get campaignMode => 'Kampanye';
+
+  @override
+  String get rulesTitle => 'Aturan Sudoku';
+
+  @override
+  String get rulesGoal => 'Tujuan';
+
+  @override
+  String get rulesGoalDesc =>
+      'Isi grid 9×9 dengan angka 1–9 sehingga setiap baris, kolom, '
+      'dan kotak 3×3 berisi setiap angka tepat satu kali.';
+
+  @override
+  String get rulesBasic => 'Aturan';
+
+  @override
+  String get rulesBasicItems =>
+      '• Tidak ada pengulangan di setiap baris\n'
+      '• Tidak ada pengulangan di setiap kolom\n'
+      '• Tidak ada pengulangan di setiap kotak 3×3\n'
+      '• Angka yang diberikan tidak dapat diubah';
+
+  @override
+  String get rulesOps => 'Cara bermain';
+
+  @override
+  String get rulesOpsItems =>
+      '• Ketuk sel untuk memilih, lalu ketuk angka untuk mengisi\n'
+      '• Umpan balik instan: hijau = benar, merah = salah\n'
+      '• Mode kampanye memiliki batas 10 kesalahan';
+
+  @override
+  String get rulesGotIt => 'Mengerti';
+
+  @override
+  String get levelFormat => 'Level %s';
+
+  @override
+  String get errorsFormat => 'Kesalahan: %s/%s';
+
+  @override
+  String get gameOver => 'Game over';
+
+  @override
+  String get gameOverDesc => 'Anda mencapai %s kesalahan. Waktu: %s';
+
+  @override
+  String get back => 'Kembali';
+
+  @override
+  String get retry => 'Coba lagi';
+
+  @override
+  String get congrats => 'Selamat!';
+
+  @override
+  String get congratsDesc => 'Selesai dalam %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Berikutnya';
+
+  @override
+  String get newGame => 'Permainan baru';
+
+  @override
+  String get selectDifficulty => 'Pilih kesulitan';
+
+  @override
+  String get difficultyEasy => 'Mudah';
+
+  @override
+  String get difficultyMedium => 'Sedang';
+
+  @override
+  String get difficultyHard => 'Sulit';
+
+  @override
+  String get replayLevel => 'Main ulang';
+
+  @override
+  String get difficulty => 'Kesulitan';
+
+  @override
+  String get campaignTitle => 'Kampanye';
+
+  @override
+  String get campaignSubtitle => '999 level, kesulitan meningkat setiap 9 level';
+
+  @override
+  String get modeEasy => 'Mudah';
+
+  @override
+  String get modeMedium => 'Sedang';
+
+  @override
+  String get modeHard => 'Sulit';
+
+  @override
+  String get modeLevels => '999 level';
+
+  @override
+  String get startLevel => 'Mulai level %s';
+
+  @override
+  String get unlockedTo => 'Terbuka hingga level %s';
+
+  @override
+  String get clickToStart => 'Ketuk untuk memulai';
+
+  @override
+  String get unlockedToClickToStart => 'Terbuka hingga level %s. Ketuk untuk memulai';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsIt extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Caricamento...';
+
+  @override
+  String get slogan => 'Gioco classico di logica numerica';
+
+  @override
+  String get freeMode => 'Gioco libero';
+
+  @override
+  String get campaignMode => 'Campagna';
+
+  @override
+  String get rulesTitle => 'Regole del Sudoku';
+
+  @override
+  String get rulesGoal => 'Obiettivo';
+
+  @override
+  String get rulesGoalDesc =>
+      'Riempi la griglia 9×9 con le cifre da 1 a 9 in modo che ogni riga, '
+      'colonna e riquadro 3×3 contenga ogni numero esattamente una volta.';
+
+  @override
+  String get rulesBasic => 'Regole';
+
+  @override
+  String get rulesBasicItems =>
+      '• Nessuna ripetizione in ogni riga\n'
+      '• Nessuna ripetizione in ogni colonna\n'
+      '• Nessuna ripetizione in ogni riquadro 3×3\n'
+      '• I numeri dati non possono essere modificati';
+
+  @override
+  String get rulesOps => 'Come giocare';
+
+  @override
+  String get rulesOpsItems =>
+      '• Tocca una cella per selezionare, poi tocca un numero per riempire\n'
+      '• Feedback immediato: verde = corretto, rosso = sbagliato\n'
+      '• La modalità campagna ha un limite di 10 errori';
+
+  @override
+  String get rulesGotIt => 'Capito';
+
+  @override
+  String get levelFormat => 'Livello %s';
+
+  @override
+  String get errorsFormat => 'Errori: %s/%s';
+
+  @override
+  String get gameOver => 'Game over';
+
+  @override
+  String get gameOverDesc => 'Hai raggiunto %s errori. Tempo: %s';
+
+  @override
+  String get back => 'Indietro';
+
+  @override
+  String get retry => 'Riprova';
+
+  @override
+  String get congrats => 'Congratulazioni!';
+
+  @override
+  String get congratsDesc => 'Completato in %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Avanti';
+
+  @override
+  String get newGame => 'Nuova partita';
+
+  @override
+  String get selectDifficulty => 'Seleziona difficoltà';
+
+  @override
+  String get difficultyEasy => 'Facile';
+
+  @override
+  String get difficultyMedium => 'Medio';
+
+  @override
+  String get difficultyHard => 'Difficile';
+
+  @override
+  String get replayLevel => 'Riprova';
+
+  @override
+  String get difficulty => 'Difficoltà';
+
+  @override
+  String get campaignTitle => 'Campagna';
+
+  @override
+  String get campaignSubtitle => '999 livelli, difficoltà aumenta ogni 9 livelli';
+
+  @override
+  String get modeEasy => 'Facile';
+
+  @override
+  String get modeMedium => 'Medio';
+
+  @override
+  String get modeHard => 'Difficile';
+
+  @override
+  String get modeLevels => '999 livelli';
+
+  @override
+  String get startLevel => 'Inizia livello %s';
+
+  @override
+  String get unlockedTo => 'Sbloccato fino al livello %s';
+
+  @override
+  String get clickToStart => 'Tocca per iniziare';
+
+  @override
+  String get unlockedToClickToStart => 'Sbloccato fino al livello %s. Tocca per iniziare';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsJa extends AppLocalizations {
+  @override
+  String get appTitle => 'CS 数独';
+
+  @override
+  String get sudoku => '数独';
+
+  @override
+  String get loading => '読み込み中...';
+
+  @override
+  String get slogan => 'クラシック数字ロジックゲーム';
+
+  @override
+  String get freeMode => 'フリープレイ';
+
+  @override
+  String get campaignMode => 'キャンペーン';
+
+  @override
+  String get rulesTitle => '数独のルール';
+
+  @override
+  String get rulesGoal => '目標';
+
+  @override
+  String get rulesGoalDesc =>
+      '9×9のグリッドに1〜9の数字を入れ、各行・各列・各3×3のブロックに '
+      '各数字が1回ずつ入るようにします。';
+
+  @override
+  String get rulesBasic => 'ルール';
+
+  @override
+  String get rulesBasicItems =>
+      '• 各行に重複なし\n'
+      '• 各列に重複なし\n'
+      '• 各3×3ブロックに重複なし\n'
+      '• 最初から入っている数字は変更不可';
+
+  @override
+  String get rulesOps => '遊び方';
+
+  @override
+  String get rulesOpsItems =>
+      '• セルをタップして選択し、数字をタップして入力\n'
+      '• 即時フィードバック：緑＝正解、赤＝不正解\n'
+      '• キャンペーンモードは10回までミス可能';
+
+  @override
+  String get rulesGotIt => 'わかりました';
+
+  @override
+  String get levelFormat => 'レベル %s';
+
+  @override
+  String get errorsFormat => 'ミス: %s/%s';
+
+  @override
+  String get gameOver => 'ゲームオーバー';
+
+  @override
+  String get gameOverDesc => '%s回ミスしました。タイム: %s';
+
+  @override
+  String get back => '戻る';
+
+  @override
+  String get retry => 'リトライ';
+
+  @override
+  String get congrats => 'おめでとうございます！';
+
+  @override
+  String get congratsDesc => '%sでクリア！';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => '次へ';
+
+  @override
+  String get newGame => '新しいゲーム';
+
+  @override
+  String get selectDifficulty => '難易度を選択';
+
+  @override
+  String get difficultyEasy => '簡単';
+
+  @override
+  String get difficultyMedium => '普通';
+
+  @override
+  String get difficultyHard => '難しい';
+
+  @override
+  String get replayLevel => 'リプレイ';
+
+  @override
+  String get difficulty => '難易度';
+
+  @override
+  String get campaignTitle => 'キャンペーン';
+
+  @override
+  String get campaignSubtitle => '999レベル、9レベルごとに難易度上昇';
+
+  @override
+  String get modeEasy => '簡単';
+
+  @override
+  String get modeMedium => '普通';
+
+  @override
+  String get modeHard => '難しい';
+
+  @override
+  String get modeLevels => '999レベル';
+
+  @override
+  String get startLevel => 'レベル %s を開始';
+
+  @override
+  String get unlockedTo => 'レベル %s まで解放';
+
+  @override
+  String get clickToStart => 'タップして開始';
+
+  @override
+  String get unlockedToClickToStart => 'レベル %s まで解放。タップして開始';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsKo extends AppLocalizations {
+  @override
+  String get appTitle => 'CS 스도쿠';
+
+  @override
+  String get sudoku => '스도쿠';
+
+  @override
+  String get loading => '로딩 중...';
+
+  @override
+  String get slogan => '클래식 숫자 논리 게임';
+
+  @override
+  String get freeMode => '자유 플레이';
+
+  @override
+  String get campaignMode => '캠페인';
+
+  @override
+  String get rulesTitle => '스도쿠 규칙';
+
+  @override
+  String get rulesGoal => '목표';
+
+  @override
+  String get rulesGoalDesc =>
+      '9×9 그리드에 1~9 숫자를 채워 각 행, 열, 3×3 박스에 '
+      '각 숫자가 정확히 한 번씩만 들어가도록 하세요.';
+
+  @override
+  String get rulesBasic => '규칙';
+
+  @override
+  String get rulesBasicItems =>
+      '• 각 행에 중복 없음\n'
+      '• 각 열에 중복 없음\n'
+      '• 각 3×3 박스에 중복 없음\n'
+      '• 주어진 숫자는 변경 불가';
+
+  @override
+  String get rulesOps => '플레이 방법';
+
+  @override
+  String get rulesOpsItems =>
+      '• 셀을 탭하여 선택한 후 숫자를 탭하여 입력\n'
+      '• 즉시 피드백: 초록 = 정답, 빨강 = 오답\n'
+      '• 캠페인 모드는 오류 10회 제한';
+
+  @override
+  String get rulesGotIt => '알겠습니다';
+
+  @override
+  String get levelFormat => '레벨 %s';
+
+  @override
+  String get errorsFormat => '오류: %s/%s';
+
+  @override
+  String get gameOver => '게임 오버';
+
+  @override
+  String get gameOverDesc => '%s회 오류에 도달했습니다. 시간: %s';
+
+  @override
+  String get back => '뒤로';
+
+  @override
+  String get retry => '다시 시도';
+
+  @override
+  String get congrats => '축하합니다!';
+
+  @override
+  String get congratsDesc => '%s에 완료!';
+
+  @override
+  String get confirm => '확인';
+
+  @override
+  String get nextLevel => '다음';
+
+  @override
+  String get newGame => '새 게임';
+
+  @override
+  String get selectDifficulty => '난이도 선택';
+
+  @override
+  String get difficultyEasy => '쉬움';
+
+  @override
+  String get difficultyMedium => '보통';
+
+  @override
+  String get difficultyHard => '어려움';
+
+  @override
+  String get replayLevel => '다시 플레이';
+
+  @override
+  String get difficulty => '난이도';
+
+  @override
+  String get campaignTitle => '캠페인';
+
+  @override
+  String get campaignSubtitle => '999 레벨, 9레벨마다 난이도 상승';
+
+  @override
+  String get modeEasy => '쉬움';
+
+  @override
+  String get modeMedium => '보통';
+
+  @override
+  String get modeHard => '어려움';
+
+  @override
+  String get modeLevels => '999 레벨';
+
+  @override
+  String get startLevel => '레벨 %s 시작';
+
+  @override
+  String get unlockedTo => '레벨 %s까지 해금';
+
+  @override
+  String get clickToStart => '탭하여 시작';
+
+  @override
+  String get unlockedToClickToStart => '레벨 %s까지 해금. 탭하여 시작';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsPt extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Carregando...';
+
+  @override
+  String get slogan => 'Jogo clássico de lógica numérica';
+
+  @override
+  String get freeMode => 'Jogo livre';
+
+  @override
+  String get campaignMode => 'Campanha';
+
+  @override
+  String get rulesTitle => 'Regras do Sudoku';
+
+  @override
+  String get rulesGoal => 'Objetivo';
+
+  @override
+  String get rulesGoalDesc =>
+      'Preencha a grade 9×9 com dígitos de 1 a 9 para que cada linha, '
+      'coluna e caixa 3×3 contenha cada número exatamente uma vez.';
+
+  @override
+  String get rulesBasic => 'Regras';
+
+  @override
+  String get rulesBasicItems =>
+      '• Sem repetições em cada linha\n'
+      '• Sem repetições em cada coluna\n'
+      '• Sem repetições em cada caixa 3×3\n'
+      '• Os números dados não podem ser alterados';
+
+  @override
+  String get rulesOps => 'Como jogar';
+
+  @override
+  String get rulesOpsItems =>
+      '• Toque em uma célula para selecionar, depois toque em um número para preencher\n'
+      '• Feedback instantâneo: verde = correto, vermelho = errado\n'
+      '• O modo campanha tem limite de 10 erros';
+
+  @override
+  String get rulesGotIt => 'Entendi';
+
+  @override
+  String get levelFormat => 'Nível %s';
+
+  @override
+  String get errorsFormat => 'Erros: %s/%s';
+
+  @override
+  String get gameOver => 'Fim de jogo';
+
+  @override
+  String get gameOverDesc => 'Você atingiu %s erros. Tempo: %s';
+
+  @override
+  String get back => 'Voltar';
+
+  @override
+  String get retry => 'Tentar novamente';
+
+  @override
+  String get congrats => 'Parabéns!';
+
+  @override
+  String get congratsDesc => 'Concluído em %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Próximo';
+
+  @override
+  String get newGame => 'Novo jogo';
+
+  @override
+  String get selectDifficulty => 'Selecionar dificuldade';
+
+  @override
+  String get difficultyEasy => 'Fácil';
+
+  @override
+  String get difficultyMedium => 'Médio';
+
+  @override
+  String get difficultyHard => 'Difícil';
+
+  @override
+  String get replayLevel => 'Repetir';
+
+  @override
+  String get difficulty => 'Dificuldade';
+
+  @override
+  String get campaignTitle => 'Campanha';
+
+  @override
+  String get campaignSubtitle => '999 níveis, dificuldade aumenta a cada 9 níveis';
+
+  @override
+  String get modeEasy => 'Fácil';
+
+  @override
+  String get modeMedium => 'Médio';
+
+  @override
+  String get modeHard => 'Difícil';
+
+  @override
+  String get modeLevels => '999 níveis';
+
+  @override
+  String get startLevel => 'Iniciar nível %s';
+
+  @override
+  String get unlockedTo => 'Desbloqueado até o nível %s';
+
+  @override
+  String get clickToStart => 'Toque para começar';
+
+  @override
+  String get unlockedToClickToStart => 'Desbloqueado até o nível %s. Toque para começar';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsRu extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Судоку';
+
+  @override
+  String get sudoku => 'Судоку';
+
+  @override
+  String get loading => 'Загрузка...';
+
+  @override
+  String get slogan => 'Классическая числовая логическая игра';
+
+  @override
+  String get freeMode => 'Свободная игра';
+
+  @override
+  String get campaignMode => 'Кампания';
+
+  @override
+  String get rulesTitle => 'Правила судоку';
+
+  @override
+  String get rulesGoal => 'Цель';
+
+  @override
+  String get rulesGoalDesc =>
+      'Заполните сетку 9×9 цифрами от 1 до 9 так, чтобы каждая строка, '
+      'столбец и блок 3×3 содержали каждую цифру ровно один раз.';
+
+  @override
+  String get rulesBasic => 'Правила';
+
+  @override
+  String get rulesBasicItems =>
+      '• Без повторов в каждой строке\n'
+      '• Без повторов в каждом столбце\n'
+      '• Без повторов в каждом блоке 3×3\n'
+      '• Исходные цифры нельзя менять';
+
+  @override
+  String get rulesOps => 'Как играть';
+
+  @override
+  String get rulesOpsItems =>
+      '• Нажмите на ячейку для выбора, затем на цифру для ввода\n'
+      '• Мгновенная обратная связь: зелёный = верно, красный = неверно\n'
+      '• В режиме кампании лимит 10 ошибок';
+
+  @override
+  String get rulesGotIt => 'Понятно';
+
+  @override
+  String get levelFormat => 'Уровень %s';
+
+  @override
+  String get errorsFormat => 'Ошибки: %s/%s';
+
+  @override
+  String get gameOver => 'Конец игры';
+
+  @override
+  String get gameOverDesc => 'Вы допустили %s ошибок. Время: %s';
+
+  @override
+  String get back => 'Назад';
+
+  @override
+  String get retry => 'Повторить';
+
+  @override
+  String get congrats => 'Поздравляем!';
+
+  @override
+  String get congratsDesc => 'Завершено за %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Далее';
+
+  @override
+  String get newGame => 'Новая игра';
+
+  @override
+  String get selectDifficulty => 'Выбрать сложность';
+
+  @override
+  String get difficultyEasy => 'Лёгкий';
+
+  @override
+  String get difficultyMedium => 'Средний';
+
+  @override
+  String get difficultyHard => 'Сложный';
+
+  @override
+  String get replayLevel => 'Повторить';
+
+  @override
+  String get difficulty => 'Сложность';
+
+  @override
+  String get campaignTitle => 'Кампания';
+
+  @override
+  String get campaignSubtitle => '999 уровней, сложность растёт каждые 9 уровней';
+
+  @override
+  String get modeEasy => 'Лёгкий';
+
+  @override
+  String get modeMedium => 'Средний';
+
+  @override
+  String get modeHard => 'Сложный';
+
+  @override
+  String get modeLevels => '999 уровней';
+
+  @override
+  String get startLevel => 'Начать уровень %s';
+
+  @override
+  String get unlockedTo => 'Разблокировано до уровня %s';
+
+  @override
+  String get clickToStart => 'Нажмите для начала';
+
+  @override
+  String get unlockedToClickToStart => 'Разблокировано до уровня %s. Нажмите для начала';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsTh extends AppLocalizations {
+  @override
+  String get appTitle => 'CS ซูโดกุ';
+
+  @override
+  String get sudoku => 'ซูโดกุ';
+
+  @override
+  String get loading => 'กำลังโหลด...';
+
+  @override
+  String get slogan => 'เกมตรรกะตัวเลขคลาสสิก';
+
+  @override
+  String get freeMode => 'เล่นฟรี';
+
+  @override
+  String get campaignMode => 'แคมเปญ';
+
+  @override
+  String get rulesTitle => 'กฎของซูโดกุ';
+
+  @override
+  String get rulesGoal => 'เป้าหมาย';
+
+  @override
+  String get rulesGoalDesc =>
+      'เติมตาราง 9×9 ด้วยตัวเลข 1–9 ให้แต่ละแถว คอลัมน์ และ '
+      'กล่อง 3×3 มีตัวเลขแต่ละตัวเพียงครั้งเดียว';
+
+  @override
+  String get rulesBasic => 'กฎ';
+
+  @override
+  String get rulesBasicItems =>
+      '• ไม่ซ้ำในแต่ละแถว\n'
+      '• ไม่ซ้ำในแต่ละคอลัมน์\n'
+      '• ไม่ซ้ำในแต่ละกล่อง 3×3\n'
+      '• ตัวเลขที่ให้มาไม่สามารถเปลี่ยนได้';
+
+  @override
+  String get rulesOps => 'วิธีเล่น';
+
+  @override
+  String get rulesOpsItems =>
+      '• แตะเซลล์เพื่อเลือก จากนั้นแตะตัวเลขเพื่อเติม\n'
+      '• ผลตอบกลับทันที: เขียว = ถูกต้อง แดง = ผิด\n'
+      '• โหมดแคมเปญจำกัด 10 ข้อผิดพลาด';
+
+  @override
+  String get rulesGotIt => 'เข้าใจแล้ว';
+
+  @override
+  String get levelFormat => 'ระดับ %s';
+
+  @override
+  String get errorsFormat => 'ข้อผิดพลาด: %s/%s';
+
+  @override
+  String get gameOver => 'เกมจบ';
+
+  @override
+  String get gameOverDesc => 'คุณทำผิด %s ครั้ง เวลา: %s';
+
+  @override
+  String get back => 'กลับ';
+
+  @override
+  String get retry => 'ลองอีกครั้ง';
+
+  @override
+  String get congrats => 'ยินดีด้วย!';
+
+  @override
+  String get congratsDesc => 'สำเร็จใน %s!';
+
+  @override
+  String get confirm => 'ตกลง';
+
+  @override
+  String get nextLevel => 'ถัดไป';
+
+  @override
+  String get newGame => 'เกมใหม่';
+
+  @override
+  String get selectDifficulty => 'เลือกความยาก';
+
+  @override
+  String get difficultyEasy => 'ง่าย';
+
+  @override
+  String get difficultyMedium => 'ปานกลาง';
+
+  @override
+  String get difficultyHard => 'ยาก';
+
+  @override
+  String get replayLevel => 'เล่นซ้ำ';
+
+  @override
+  String get difficulty => 'ความยาก';
+
+  @override
+  String get campaignTitle => 'แคมเปญ';
+
+  @override
+  String get campaignSubtitle => '999 ระดับ ความยากเพิ่มทุก 9 ระดับ';
+
+  @override
+  String get modeEasy => 'ง่าย';
+
+  @override
+  String get modeMedium => 'ปานกลาง';
+
+  @override
+  String get modeHard => 'ยาก';
+
+  @override
+  String get modeLevels => '999 ระดับ';
+
+  @override
+  String get startLevel => 'เริ่มระดับ %s';
+
+  @override
+  String get unlockedTo => 'ปลดล็อกถึงระดับ %s';
+
+  @override
+  String get clickToStart => 'แตะเพื่อเริ่ม';
+
+  @override
+  String get unlockedToClickToStart => 'ปลดล็อกถึงระดับ %s แตะเพื่อเริ่ม';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsTr extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Yükleniyor...';
+
+  @override
+  String get slogan => 'Klasik sayı mantık oyunu';
+
+  @override
+  String get freeMode => 'Serbest oyun';
+
+  @override
+  String get campaignMode => 'Kampanya';
+
+  @override
+  String get rulesTitle => 'Sudoku kuralları';
+
+  @override
+  String get rulesGoal => 'Hedef';
+
+  @override
+  String get rulesGoalDesc =>
+      '9×9 ızgarayı 1–9 rakamlarıyla doldurun; her satır, sütun ve '
+      '3×3 kutuda her sayı tam olarak bir kez geçsin.';
+
+  @override
+  String get rulesBasic => 'Kurallar';
+
+  @override
+  String get rulesBasicItems =>
+      '• Her satırda tekrar yok\n'
+      '• Her sütunda tekrar yok\n'
+      '• Her 3×3 kutuda tekrar yok\n'
+      '• Verilen sayılar değiştirilemez';
+
+  @override
+  String get rulesOps => 'Nasıl oynanır';
+
+  @override
+  String get rulesOpsItems =>
+      '• Seçmek için bir hücreye dokunun, sonra doldurmak için bir sayıya dokunun\n'
+      '• Anında geri bildirim: yeşil = doğru, kırmızı = yanlış\n'
+      '• Kampanya modunda 10 hata limiti var';
+
+  @override
+  String get rulesGotIt => 'Anladım';
+
+  @override
+  String get levelFormat => 'Seviye %s';
+
+  @override
+  String get errorsFormat => 'Hatalar: %s/%s';
+
+  @override
+  String get gameOver => 'Oyun bitti';
+
+  @override
+  String get gameOverDesc => '%s hataya ulaştınız. Süre: %s';
+
+  @override
+  String get back => 'Geri';
+
+  @override
+  String get retry => 'Tekrar dene';
+
+  @override
+  String get congrats => 'Tebrikler!';
+
+  @override
+  String get congratsDesc => '%s içinde tamamlandı!';
+
+  @override
+  String get confirm => 'Tamam';
+
+  @override
+  String get nextLevel => 'İleri';
+
+  @override
+  String get newGame => 'Yeni oyun';
+
+  @override
+  String get selectDifficulty => 'Zorluk seçin';
+
+  @override
+  String get difficultyEasy => 'Kolay';
+
+  @override
+  String get difficultyMedium => 'Orta';
+
+  @override
+  String get difficultyHard => 'Zor';
+
+  @override
+  String get replayLevel => 'Tekrar oyna';
+
+  @override
+  String get difficulty => 'Zorluk';
+
+  @override
+  String get campaignTitle => 'Kampanya';
+
+  @override
+  String get campaignSubtitle => '999 seviye, her 9 seviyede zorluk artar';
+
+  @override
+  String get modeEasy => 'Kolay';
+
+  @override
+  String get modeMedium => 'Orta';
+
+  @override
+  String get modeHard => 'Zor';
+
+  @override
+  String get modeLevels => '999 seviye';
+
+  @override
+  String get startLevel => 'Seviye %s başlat';
+
+  @override
+  String get unlockedTo => 'Seviye %s\'e kadar açıldı';
+
+  @override
+  String get clickToStart => 'Başlamak için dokunun';
+
+  @override
+  String get unlockedToClickToStart => 'Seviye %s\'e kadar açıldı. Başlamak için dokunun';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsUr extends AppLocalizations {
+  @override
+  String get appTitle => 'CS سوڈوکو';
+
+  @override
+  String get sudoku => 'سوڈوکو';
+
+  @override
+  String get loading => 'لوڈ ہو رہا ہے...';
+
+  @override
+  String get slogan => 'کلاسک نمبر لاجک گیم';
+
+  @override
+  String get freeMode => 'فری پلے';
+
+  @override
+  String get campaignMode => 'مہم';
+
+  @override
+  String get rulesTitle => 'سوڈوکو کے اصول';
+
+  @override
+  String get rulesGoal => 'ہدف';
+
+  @override
+  String get rulesGoalDesc =>
+      '9×9 گرڈ کو 1-9 ہندسوں سے بھریں تاکہ ہر قطار، کالم اور '
+      '3×3 باکس میں ہر نمبر بالکل ایک بار آئے۔';
+
+  @override
+  String get rulesBasic => 'اصول';
+
+  @override
+  String get rulesBasicItems =>
+      '• ہر قطار میں دہراؤ نہیں\n'
+      '• ہر کالم میں دہراؤ نہیں\n'
+      '• ہر 3×3 باکس میں دہراؤ نہیں\n'
+      '• دیے گئے نمبر تبدیل نہیں ہو سکتے';
+
+  @override
+  String get rulesOps => 'کیسے کھیلیں';
+
+  @override
+  String get rulesOpsItems =>
+      '• منتخب کرنے کے لیے سیل پر ٹیپ کریں، پھر بھرنے کے لیے نمبر پر ٹیپ کریں\n'
+      '• فوری رائے: سبز = درست، سرخ = غلط\n'
+      '• مہم موڈ میں 10 غلطیوں کی حد';
+
+  @override
+  String get rulesGotIt => 'سمجھ گیا';
+
+  @override
+  String get levelFormat => 'لیول %s';
+
+  @override
+  String get errorsFormat => 'غلطیاں: %s/%s';
+
+  @override
+  String get gameOver => 'گیم ختم';
+
+  @override
+  String get gameOverDesc => 'آپ نے %s غلطیاں کیں۔ وقت: %s';
+
+  @override
+  String get back => 'واپس';
+
+  @override
+  String get retry => 'دوبارہ کوشش کریں';
+
+  @override
+  String get congrats => 'مبارک ہو!';
+
+  @override
+  String get congratsDesc => '%s میں مکمل!';
+
+  @override
+  String get confirm => 'ٹھیک ہے';
+
+  @override
+  String get nextLevel => 'اگلا';
+
+  @override
+  String get newGame => 'نیا گیم';
+
+  @override
+  String get selectDifficulty => 'دشواری منتخب کریں';
+
+  @override
+  String get difficultyEasy => 'آسان';
+
+  @override
+  String get difficultyMedium => 'درمیانی';
+
+  @override
+  String get difficultyHard => 'مشکل';
+
+  @override
+  String get replayLevel => 'دوبارہ کھیلیں';
+
+  @override
+  String get difficulty => 'دشواری';
+
+  @override
+  String get campaignTitle => 'مہم';
+
+  @override
+  String get campaignSubtitle => '999 لیول، ہر 9 لیول پر دشواری بڑھتی ہے';
+
+  @override
+  String get modeEasy => 'آسان';
+
+  @override
+  String get modeMedium => 'درمیانی';
+
+  @override
+  String get modeHard => 'مشکل';
+
+  @override
+  String get modeLevels => '999 لیول';
+
+  @override
+  String get startLevel => 'لیول %s شروع کریں';
+
+  @override
+  String get unlockedTo => 'لیول %s تک کھلا';
+
+  @override
+  String get clickToStart => 'شروع کرنے کے لیے ٹیپ کریں';
+
+  @override
+  String get unlockedToClickToStart => 'لیول %s تک کھلا۔ شروع کرنے کے لیے ٹیپ کریں';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsVi extends AppLocalizations {
+  @override
+  String get appTitle => 'CS Sudoku';
+
+  @override
+  String get sudoku => 'Sudoku';
+
+  @override
+  String get loading => 'Đang tải...';
+
+  @override
+  String get slogan => 'Trò chơi logic số cổ điển';
+
+  @override
+  String get freeMode => 'Chơi tự do';
+
+  @override
+  String get campaignMode => 'Chiến dịch';
+
+  @override
+  String get rulesTitle => 'Luật Sudoku';
+
+  @override
+  String get rulesGoal => 'Mục tiêu';
+
+  @override
+  String get rulesGoalDesc =>
+      'Điền lưới 9×9 bằng các chữ số từ 1 đến 9 sao cho mỗi hàng, cột và '
+      'ô 3×3 chứa mỗi số đúng một lần.';
+
+  @override
+  String get rulesBasic => 'Luật chơi';
+
+  @override
+  String get rulesBasicItems =>
+      '• Không lặp lại trong mỗi hàng\n'
+      '• Không lặp lại trong mỗi cột\n'
+      '• Không lặp lại trong mỗi ô 3×3\n'
+      '• Số cho sẵn không thể thay đổi';
+
+  @override
+  String get rulesOps => 'Cách chơi';
+
+  @override
+  String get rulesOpsItems =>
+      '• Chạm vào ô để chọn, sau đó chạm vào số để điền\n'
+      '• Phản hồi tức thì: xanh = đúng, đỏ = sai\n'
+      '• Chế độ chiến dịch giới hạn 10 lỗi';
+
+  @override
+  String get rulesGotIt => 'Đã hiểu';
+
+  @override
+  String get levelFormat => 'Cấp %s';
+
+  @override
+  String get errorsFormat => 'Lỗi: %s/%s';
+
+  @override
+  String get gameOver => 'Hết game';
+
+  @override
+  String get gameOverDesc => 'Bạn đã đạt %s lỗi. Thời gian: %s';
+
+  @override
+  String get back => 'Quay lại';
+
+  @override
+  String get retry => 'Thử lại';
+
+  @override
+  String get congrats => 'Chúc mừng!';
+
+  @override
+  String get congratsDesc => 'Hoàn thành trong %s!';
+
+  @override
+  String get confirm => 'OK';
+
+  @override
+  String get nextLevel => 'Tiếp theo';
+
+  @override
+  String get newGame => 'Game mới';
+
+  @override
+  String get selectDifficulty => 'Chọn độ khó';
+
+  @override
+  String get difficultyEasy => 'Dễ';
+
+  @override
+  String get difficultyMedium => 'Trung bình';
+
+  @override
+  String get difficultyHard => 'Khó';
+
+  @override
+  String get replayLevel => 'Chơi lại';
+
+  @override
+  String get difficulty => 'Độ khó';
+
+  @override
+  String get campaignTitle => 'Chiến dịch';
+
+  @override
+  String get campaignSubtitle => '999 cấp, độ khó tăng mỗi 9 cấp';
+
+  @override
+  String get modeEasy => 'Dễ';
+
+  @override
+  String get modeMedium => 'Trung bình';
+
+  @override
+  String get modeHard => 'Khó';
+
+  @override
+  String get modeLevels => '999 cấp';
+
+  @override
+  String get startLevel => 'Bắt đầu cấp %s';
+
+  @override
+  String get unlockedTo => 'Mở khóa đến cấp %s';
+
+  @override
+  String get clickToStart => 'Chạm để bắt đầu';
+
+  @override
+  String get unlockedToClickToStart => 'Mở khóa đến cấp %s. Chạm để bắt đầu';
+}
+import 'app_localizations.dart';
+
+class AppLocalizationsZh extends AppLocalizations {
+  @override
+  String get appTitle => '数独-可爱桔';
+
+  @override
+  String get sudoku => '数独';
+
+  @override
+  String get loading => '加载中...';
+
+  @override
+  String get slogan => '经典数字逻辑游戏';
+
+  @override
+  String get freeMode => '自由模式';
+
+  @override
+  String get campaignMode => '闯关模式';
+
+  @override
+  String get rulesTitle => '数独规则说明';
+
+  @override
+  String get rulesGoal => '游戏目标';
+
+  @override
+  String get rulesGoalDesc =>
+      '在 9×9 的格子中填入数字 1～9，使每一行、每一列、每一个 3×3 宫格内，1～9 各出现一次。';
+
+  @override
+  String get rulesBasic => '基本规则';
+
+  @override
+  String get rulesBasicItems =>
+      '• 每行 9 个数字不重复\n'
+      '• 每列 9 个数字不重复\n'
+      '• 每个 3×3 宫格内 9 个数字不重复\n'
+      '• 题目给出的数字不可修改';
+
+  @override
+  String get rulesOps => '操作说明';
+
+  @override
+  String get rulesOpsItems =>
+      '• 点击空白格选中，再点击数字键盘填入\n'
+      '• 每填一个数字会立即显示对错（绿色=正确，红色=错误）\n'
+      '• 闯关模式有错误次数限制（10 次）';
+
+  @override
+  String get rulesGotIt => '知道了';
+
+  @override
+  String get levelFormat => '第 %s 关';
+
+  @override
+  String get errorsFormat => '错误: %s/%s';
+
+  @override
+  String get gameOver => '游戏结束';
+
+  @override
+  String get gameOverDesc => '错误次数已达 %s 次，本关失败。\n用时：%s';
+
+  @override
+  String get back => '返回';
+
+  @override
+  String get retry => '重试';
+
+  @override
+  String get congrats => '恭喜完成！';
+
+  @override
+  String get congratsDesc => '你用了 %s 完成数独！';
+
+  @override
+  String get confirm => '确定';
+
+  @override
+  String get nextLevel => '下一关';
+
+  @override
+  String get newGame => '新游戏';
+
+  @override
+  String get selectDifficulty => '选择难度';
+
+  @override
+  String get difficultyEasy => '简单';
+
+  @override
+  String get difficultyMedium => '中等';
+
+  @override
+  String get difficultyHard => '困难';
+
+  @override
+  String get replayLevel => '重玩本关';
+
+  @override
+  String get difficulty => '难度';
+
+  @override
+  String get campaignTitle => '闯关模式';
+
+  @override
+  String get campaignSubtitle => '每9关难度逐渐增加，共999关';
+
+  @override
+  String get modeEasy => '简单';
+
+  @override
+  String get modeMedium => '中等';
+
+  @override
+  String get modeHard => '困难';
+
+  @override
+  String get modeLevels => '999关 · 每9关难度+1';
+
+  @override
+  String get startLevel => '开始第 %s 关';
+
+  @override
+  String get unlockedTo => '已解锁至第 %s 关';
+
+  @override
+  String get clickToStart => '点击关卡开始';
+
+  @override
+  String get unlockedToClickToStart => '已解锁至第 %s 关，点击关卡开始';
+}
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'l10n/app_localizations.dart';
+import 'screens/home_screen.dart';
+import 'services/campaign_progress.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  // Defer storage init to avoid blocking startup; fallback to in-memory if plugin fails
+  unawaited(CampaignProgress.ensureInitialized());
+  runApp(const SudokuApp());
+}
+
+class SudokuApp extends StatelessWidget {
+  const SudokuApp({super.key, this.localeOverride});
+
+  /// Override locale for testing; null = use system locale
+  final Locale? localeOverride;
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = localeOverride ?? WidgetsBinding.instance.platformDispatcher.locale;
+    return MaterialApp(
+      locale: locale,
+      title: AppLocalizations.get(locale.languageCode).appTitle,
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      // Top 18 languages by usage, follows system locale
+      supportedLocales: const [
+        Locale('en'),
+        Locale('zh'),
+        Locale('hi'),
+        Locale('es'),
+        Locale('ar'),
+        Locale('fr'),
+        Locale('bn'),
+        Locale('pt'),
+        Locale('ru'),
+        Locale('id'),
+        Locale('ur'),
+        Locale('de'),
+        Locale('ja'),
+        Locale('vi'),
+        Locale('tr'),
+        Locale('ko'),
+        Locale('it'),
+        Locale('th'),
+      ],
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2E7D32),
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+      ),
+      home: const HomeScreen(),
+    );
+  }
+}
+import 'package:flutter/material.dart';
+
+import '../l10n/app_localizations.dart';
+import 'level_select_screen.dart';
+
+/// Campaign mode - select difficulty (Easy/Medium/Hard)
+class CampaignModeScreen extends StatelessWidget {
+  const CampaignModeScreen({super.key});
+
+  static const _modes = [
+    (id: 1, icon: Icons.sentiment_satisfied, color: Color(0xFF4CAF50)),
+    (id: 2, icon: Icons.sentiment_neutral, color: Color(0xFF2196F3)),
+    (id: 3, icon: Icons.sentiment_dissatisfied, color: Color(0xFFE53935)),
+  ];
+
+  String _modeName(AppLocalizations l10n, int id) {
+    switch (id) {
+      case 1:
+        return l10n.modeEasy;
+      case 2:
+        return l10n.modeMedium;
+      case 3:
+        return l10n.modeHard;
+      default:
+        return '$id';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF1B5E20),
+              Color(0xFF2E7D32),
+              Color(0xFF388E3C),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              AppBar(
+                title: Text(
+                  l10n.campaignTitle,
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+                child: Text(
+                  l10n.campaignSubtitle,
+                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                ),
+              ),
+              Expanded(
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(24),
+                  itemCount: _modes.length,
+                  itemBuilder: (context, index) {
+                    final mode = _modes[index];
+                    final name = _modeName(l10n, mode.id);
+                    return _ModeCard(
+                      name: name,
+                      modeLevels: l10n.modeLevels,
+                      icon: mode.icon,
+                      color: mode.color,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LevelSelectScreen(
+                              mode: mode.id,
+                              modeName: name,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ModeCard extends StatelessWidget {
+  const _ModeCard({
+    required this.name,
+    required this.modeLevels,
+    required this.icon,
+    required this.color,
+    required this.onTap,
+  });
+
+  final String name;
+  final String modeLevels;
+  final IconData icon;
+  final Color color;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      elevation: 4,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(icon, size: 36, color: color),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      modeLevels,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right, color: Colors.grey),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+
+import '../l10n/app_localizations.dart';
+import '../services/campaign_progress.dart';
+import '../sudoku/sudoku_generator.dart';
+import '../sudoku/sudoku_validator.dart';
+import '../widgets/number_pad.dart';
+import '../widgets/sudoku_grid.dart';
+
+class GameScreen extends StatefulWidget {
+  const GameScreen({
+    super.key,
+    this.campaignMode,
+    this.campaignLevel,
+  });
+
+  /// Campaign mode: 1=Easy, 2=Medium, 3=Hard
+  final int? campaignMode;
+  /// Campaign level: 1-999
+  final int? campaignLevel;
+
+  @override
+  State<GameScreen> createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  List<List<int>> _grid = List.generate(9, (_) => List.filled(9, 0));
+  List<List<int>> _initialPuzzle = List.generate(9, (_) => List.filled(9, 0));
+  List<List<int>> _solution = List.generate(9, (_) => List.filled(9, 0));
+  ({int row, int col})? _selectedCell;
+  bool _isNotesMode = false;
+  Set<({int row, int col})> _errorCells = {};
+  Set<({int row, int col})> _correctCells = {};
+  int _difficulty = 2; // 1=Easy, 2=Medium, 3=Hard (Free Play)
+  int _elapsedSeconds = 0;
+  Timer? _timer;
+  bool _isCompleted = false;
+
+  bool get _isCampaign => widget.campaignMode != null && widget.campaignLevel != null;
+  bool _isLoading = true;
+  int _errorCount = 0;
+  static const int _maxErrors = 10; // Campaign error limit
+  bool _isGameOver = false;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _newGame();
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  void _newGame() {
+    _timer?.cancel();
+    _timer = null;
+    _elapsedSeconds = 0;
+    _isCompleted = false;
+    _errorCount = 0;
+    _isGameOver = false;
+
+    final generator = SudokuGenerator();
+    final result = _isCampaign
+        ? generator.generateForLevel(
+            mode: widget.campaignMode!,
+            level: widget.campaignLevel!,
+          )
+        : generator.generatePuzzleWithSolution(difficulty: _difficulty);
+    _initialPuzzle = result.puzzle;
+    _solution = result.solution;
+    _grid = _initialPuzzle.map((row) => List<int>.from(row)).toList();
+    _selectedCell = null;
+    _errorCells = {};
+    _correctCells = {};
+
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (!_isCompleted) {
+        setState(() => _elapsedSeconds++);
+      }
+    });
+  }
+
+  void _onCellTap(int row, int col) {
+    if (_initialPuzzle[row][col] != 0) return; // Fixed cells are not editable
+
+    setState(() {
+      _selectedCell = (row: row, col: col);
+    });
+  }
+
+  void _onNumberTap(int number) {
+    if (_selectedCell == null) return;
+    if (_isCampaign && _isGameOver) return;
+
+    final (row: row, col: col) = _selectedCell!;
+    if (_initialPuzzle[row][col] != 0) return;
+
+    setState(() {
+      if (_isNotesMode) {
+        // Notes mode not implemented yet, fill number directly
+        _grid[row][col] = number;
+        _checkAndUpdateFeedback(row, col, number);
+      } else {
+        _grid[row][col] = number;
+        _checkAndUpdateFeedback(row, col, number);
+
+        if (SudokuValidator.isComplete(_grid)) {
+          _isCompleted = true;
+          _timer?.cancel();
+          _showWinDialog();
+        }
+      }
+    });
+  }
+
+  /// Check if input is correct against solution, update correct/error highlights
+  void _checkAndUpdateFeedback(int row, int col, int number) {
+    final isCorrect = number == _solution[row][col];
+    if (isCorrect) {
+      _correctCells = {..._correctCells, (row: row, col: col)};
+      _errorCells = _errorCells.difference({(row: row, col: col)});
+    } else {
+      _errorCells = {..._errorCells, (row: row, col: col)};
+      _correctCells = _correctCells.difference({(row: row, col: col)});
+      if (_isCampaign) {
+        _errorCount++;
+        if (_errorCount >= _maxErrors) {
+          _isGameOver = true;
+          _timer?.cancel();
+          _showGameOverDialog();
+        }
+      }
+    }
+  }
+
+  void _onClear() {
+    if (_selectedCell == null) return;
+    if (_isCampaign && _isGameOver) return;
+
+    final (row: row, col: col) = _selectedCell!;
+    if (_initialPuzzle[row][col] != 0) return;
+
+    setState(() {
+      _grid[row][col] = 0;
+      _errorCells = _errorCells.difference({(row: row, col: col)});
+      _correctCells = _correctCells.difference({(row: row, col: col)});
+    });
+  }
+
+  void _onNotes() {
+    setState(() => _isNotesMode = !_isNotesMode);
+  }
+
+  void _showGameOverDialog() {
+    if (!mounted) return;
+    final l10n = AppLocalizations.of(context);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.gameOver),
+        content: Text(
+          l10n.gameOverDescFormatted(_maxErrors, _formatTime(_elapsedSeconds)),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              Navigator.pop(context, true);
+            },
+            child: Text(l10n.back),
+          ),
+          FilledButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              _newGame();
+              setState(() {});
+            },
+            child: Text(l10n.retry),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showWinDialog() async {
+    if (_isCampaign) {
+      await CampaignProgress.unlockNextLevel(
+        widget.campaignMode!,
+        widget.campaignLevel!,
+      );
+    }
+
+    if (!mounted) return;
+    final l10n = AppLocalizations.of(context);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.congrats),
+        content: Text(
+          l10n.congratsDescFormatted(_formatTime(_elapsedSeconds)),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(ctx);
+              if (_isCampaign) {
+                Navigator.pop(context, true);
+              }
+            },
+            child: Text(l10n.confirm),
+          ),
+          if (_isCampaign && widget.campaignLevel! < 999)
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                Navigator.pop(context, widget.campaignLevel! + 1);
+              },
+              child: Text(l10n.nextLevel),
+            )
+          else if (!_isCampaign)
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                _newGame();
+              },
+              child: Text(l10n.newGame),
+            ),
+        ],
+      ),
+    );
+  }
+
+  String _formatTime(int seconds) {
+    final m = seconds ~/ 60;
+    final s = seconds % 60;
+    return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
+  }
+
+  void _showDifficultyDialog() {
+    final l10n = AppLocalizations.of(context);
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.selectDifficulty),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: Text(l10n.difficultyEasy),
+              leading: Icon(
+                _difficulty == 1 ? Icons.radio_button_checked : Icons.radio_button_off,
+              ),
+              onTap: () {
+                _difficulty = 1;
+                Navigator.pop(ctx);
+                _newGame();
+              },
+            ),
+            ListTile(
+              title: Text(l10n.difficultyMedium),
+              leading: Icon(
+                _difficulty == 2 ? Icons.radio_button_checked : Icons.radio_button_off,
+              ),
+              onTap: () {
+                _difficulty = 2;
+                Navigator.pop(ctx);
+                _newGame();
+              },
+            ),
+            ListTile(
+              title: Text(l10n.difficultyHard),
+              leading: Icon(
+                _difficulty == 3 ? Icons.radio_button_checked : Icons.radio_button_off,
+              ),
+              onTap: () {
+                _difficulty = 3;
+                Navigator.pop(ctx);
+                _newGame();
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: const Color(0xFFE8F5E9),
+      appBar: AppBar(
+        title: Text(
+          _isCampaign
+              ? AppLocalizations.of(context).level(widget.campaignLevel!)
+              : AppLocalizations.of(context).sudoku,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
+        backgroundColor: const Color(0xFF2E7D32),
+        foregroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          if (_isCampaign)
+            Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: Center(
+                child: Text(
+                  AppLocalizations.of(context).errors(_errorCount, _maxErrors),
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: _errorCount >= _maxErrors - 2
+                        ? Colors.red.shade200
+                        : Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Center(
+              child: Text(
+                _formatTime(_elapsedSeconds),
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.refresh),
+            onPressed: _newGame,
+            tooltip: _isCampaign
+                ? AppLocalizations.of(context).replayLevel
+                : AppLocalizations.of(context).newGame,
+          ),
+          if (!_isCampaign)
+            IconButton(
+              icon: const Icon(Icons.tune),
+              onPressed: _showDifficultyDialog,
+              tooltip: AppLocalizations.of(context).difficulty,
+            ),
+        ],
+      ),
+      body: SafeArea(
+        child: _isLoading
+            ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(color: Color(0xFF2E7D32)),
+                    const SizedBox(height: 16),
+                    Text(
+                      AppLocalizations.of(context).loading,
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              )
+            : LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: constraints.maxHeight - 32,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 16),
+                    SudokuGrid(
+                      grid: _grid,
+                      initialPuzzle: _initialPuzzle,
+                      selectedCell: _selectedCell,
+                      onCellTap: _onCellTap,
+                      errorCells: _errorCells,
+                      correctCells: _correctCells,
+                    ),
+                    const SizedBox(height: 24),
+                    NumberPad(
+                      onNumberTap: _onNumberTap,
+                      onClear: _onClear,
+                      onNotes: _onNotes,
+                      isNotesMode: _isNotesMode,
+                      enabled: !(_isCampaign && _isGameOver),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+import 'package:flutter/material.dart';
+
+import '../l10n/app_localizations.dart';
+import 'campaign_mode_screen.dart';
+import 'game_screen.dart';
+
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF1B5E20),
+              Color(0xFF2E7D32),
+              Color(0xFF388E3C),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(32),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withValues(alpha: 0.2),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.2),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: LayoutBuilder(
+                      builder: (context, constraints) {
+                        return SizedBox(
+                          width: constraints.maxWidth,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.center,
+                            child: Text(
+                              AppLocalizations.of(context).sudoku,
+                              style: const TextStyle(
+                                fontSize: 72,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                letterSpacing: 8,
+                              ),
+                              maxLines: 1,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+                  Text(
+                    AppLocalizations.of(context).slogan,
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white70,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  const SizedBox(height: 48),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: FilledButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const GameScreen(),
+                          ),
+                        );
+                      },
+                      style: FilledButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: const Color(0xFF2E7D32),
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: Text(AppLocalizations.of(context).freeMode),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const CampaignModeScreen(),
+                          ),
+                        );
+                      },
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.white, width: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      child: Text(AppLocalizations.of(context).campaignMode),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  TextButton.icon(
+                    onPressed: () => _showRulesDialog(context),
+                    icon: const Icon(Icons.help_outline, color: Colors.white70, size: 20),
+                    label: Text(
+                      AppLocalizations.of(context).rulesTitle,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showRulesDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.rulesTitle),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.rulesGoal,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                l10n.rulesGoalDesc,
+                style: const TextStyle(height: 1.5),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                l10n.rulesBasic,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                l10n.rulesBasicItems,
+                style: const TextStyle(height: 1.6),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                l10n.rulesOps,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                l10n.rulesOpsItems,
+                style: const TextStyle(height: 1.6),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          FilledButton(
+            onPressed: () => Navigator.pop(ctx),
+            child: Text(l10n.rulesGotIt),
+          ),
+        ],
+      ),
+    );
+  }
+}
+import 'package:flutter/material.dart';
+
+import '../l10n/app_localizations.dart';
+import '../services/campaign_progress.dart';
+import 'game_screen.dart';
+
+/// Level select - shows levels 1-999, can jump to a specific level
+class LevelSelectScreen extends StatefulWidget {
+  const LevelSelectScreen({
+    super.key,
+    required this.mode,
+    required this.modeName,
+  });
+
+  final int mode;
+  final String modeName;
+
+  @override
+  State<LevelSelectScreen> createState() => _LevelSelectScreenState();
+}
+
+class _LevelSelectScreenState extends State<LevelSelectScreen> {
+  int _currentLevel = 1;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProgress();
+  }
+
+  Future<void> _loadProgress() async {
+    final level = await CampaignProgress.getCurrentLevelAsync(widget.mode);
+    setState(() => _currentLevel = level);
+  }
+
+  void _playLevel(int level) {
+    if (level > _currentLevel) return;
+    if (!mounted) return;
+
+    _navigateAndPlay(level);
+  }
+
+  Future<void> _navigateAndPlay(int level) async {
+    if (!mounted) return;
+
+    final navigator = Navigator.of(context);
+    final result = await navigator.push<Object>(
+      MaterialPageRoute(
+        builder: (context) => GameScreen(
+          campaignMode: widget.mode,
+          campaignLevel: level,
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+    if (result != null) {
+      await _loadProgress();
+      if (result is int && result <= 999) {
+        _playLevel(result);
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
+    return Scaffold(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(0xFF1B5E20),
+              Color(0xFF2E7D32),
+              Color(0xFF388E3C),
+            ],
+          ),
+        ),
+        child: SafeArea(
+          child: Column(
+            children: [
+              AppBar(
+                title: Text(
+                  '${widget.modeName} · ${l10n.level(_currentLevel)}',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
+                  onPressed: () => Navigator.pop(context),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Text(
+                  l10n.unlockedToClickToStartFormatted(_currentLevel),
+                  style: const TextStyle(color: Colors.white70, fontSize: 14),
+                ),
+              ),
+              const SizedBox(height: 12),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 48,
+                  child: FilledButton.icon(
+                    onPressed: () => _playLevel(_currentLevel),
+                    icon: const Icon(Icons.play_arrow, size: 24),
+                    label: Text(l10n.startLevelFormatted(_currentLevel)),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: const Color(0xFF2E7D32),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.2),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(16),
+                      itemCount: 167,
+                      itemBuilder: (context, rowIndex) {
+                        final startLevel = rowIndex * 6 + 1;
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Row(
+                            children: List.generate(6, (colIndex) {
+                              final level = startLevel + colIndex;
+                              if (level > 999) return const SizedBox.shrink();
+                              final isCurrent = level == _currentLevel;
+                              final isUnlocked = level <= _currentLevel;
+                              return Expanded(
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    right: colIndex < 5 ? 8 : 0,
+                                  ),
+                                  child: _LevelTile(
+                                    level: level,
+                                    isUnlocked: isUnlocked,
+                                    isCurrent: isCurrent,
+                                    onTap: () => _playLevel(level),
+                                  ),
+                                ),
+                              );
+                            }),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LevelTile extends StatelessWidget {
+  const _LevelTile({
+    required this.level,
+    required this.isUnlocked,
+    required this.isCurrent,
+    required this.onTap,
+  });
+
+  final int level;
+  final bool isUnlocked;
+  final bool isCurrent;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 52,
+      child: Material(
+        color: isUnlocked
+            ? (isCurrent ? const Color(0xFF2E7D32) : Colors.green.shade50)
+            : Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(8),
+        child: InkWell(
+          onTap: isUnlocked ? onTap : null,
+          borderRadius: BorderRadius.circular(8),
+          child: Center(
+            child: Text(
+              '$level',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: isCurrent ? FontWeight.bold : FontWeight.w500,
+                color: isUnlocked
+                    ? (isCurrent ? Colors.white : Colors.green.shade800)
+                    : Colors.grey.shade500,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+import 'package:get_storage/get_storage.dart';
+
+/// Campaign progress management
+/// Uses get_storage for persistence; falls back to in-memory if plugin unavailable
+/// 3 modes: Easy(1), Medium(2), Hard(3), 999 levels each
+class CampaignProgress {
+  static const _boxName = 'campaign_progress';
+  static const _keyPrefix = 'campaign_level_';
+
+  static GetStorage? _box;
+  static bool _initialized = false;
+  static bool _useMemoryFallback = false;
+  static final Map<int, int> _memoryStore = {1: 1, 2: 1, 3: 1};
+
+  static String _key(int mode) => '$_keyPrefix$mode';
+
+  static Future<void> _tryInit() async {
+    if (_initialized) return;
+    try {
+      await GetStorage.init(_boxName);
+      _box = GetStorage(_boxName);
+      _initialized = true;
+    } catch (_) {
+      _useMemoryFallback = true;
+      _initialized = true;
+    }
+  }
+
+  /// Initialize storage (non-blocking, fallback to memory on failure)
+  static Future<void> ensureInitialized() async {
+    await _tryInit();
+  }
+
+  static int _getFromMemory(int mode) => _memoryStore[mode] ?? 1;
+
+  static void _setToMemory(int mode, int value) {
+    _memoryStore[mode] = value;
+  }
+
+  /// Get current level for mode (1-999, default 1)
+  static Future<int> getCurrentLevelAsync(int mode) async {
+    await _tryInit();
+    if (_useMemoryFallback) return _getFromMemory(mode);
+    final v = _box!.read(_key(mode));
+    return (v is int) ? v : 1;
+  }
+
+  /// Save progress (call after completing a level to unlock next)
+  static Future<void> unlockNextLevel(int mode, int completedLevel) async {
+    await _tryInit();
+    final next = completedLevel + 1;
+    if (next > 999) return;
+
+    _setToMemory(mode, next);
+    if (!_useMemoryFallback) {
+      try {
+        await _box!.write(_key(mode), next);
+      } catch (_) {
+        _useMemoryFallback = true;
+      }
+    }
+  }
+
+  /// Check if a level is unlocked
+  static Future<bool> isLevelUnlocked(int mode, int level) async {
+    final current = await getCurrentLevelAsync(mode);
+    return level <= current;
+  }
+}
+import 'dart:math';
+
+/// Sudoku generator - generates solvable sudoku puzzles
+class SudokuGenerator {
+  final Random _random = Random();
+
+  /// Generate a complete valid sudoku solution
+  List<List<int>> generateSolution() {
+    final grid = List.generate(9, (_) => List.filled(9, 0));
+
+    _fillDiagonalBoxes(grid);
+    _solve(grid);
+
+    return grid;
+  }
+
+  /// Fill diagonal 3x3 boxes first (they are independent)
+  void _fillDiagonalBoxes(List<List<int>> grid) {
+    for (int box = 0; box < 9; box += 3) {
+      _fillBox(grid, box, box);
+    }
+  }
+
+  void _fillBox(List<List<int>> grid, int row, int col) {
+    final numbers = List.generate(9, (i) => i + 1)..shuffle(_random);
+
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        grid[row + i][col + j] = numbers[i * 3 + j];
+      }
+    }
+  }
+
+  /// Solve sudoku using backtracking
+  bool _solve(List<List<int>> grid) {
+    for (int row = 0; row < 9; row++) {
+      for (int col = 0; col < 9; col++) {
+        if (grid[row][col] == 0) {
+          final numbers = List.generate(9, (i) => i + 1)..shuffle(_random);
+
+          for (final num in numbers) {
+            if (_isValid(grid, row, col, num)) {
+              grid[row][col] = num;
+
+              if (_solve(grid)) {
+                return true;
+              }
+
+              grid[row][col] = 0;
+            }
+          }
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  bool _isValid(List<List<int>> grid, int row, int col, int num) {
+    // Check row
+    for (int x = 0; x < 9; x++) {
+      if (grid[row][x] == num) return false;
+    }
+
+    // Check column
+    for (int x = 0; x < 9; x++) {
+      if (grid[x][col] == num) return false;
+    }
+
+    // Check 3x3 box
+    final startRow = row - row % 3;
+    final startCol = col - col % 3;
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        if (grid[startRow + i][startCol + j] == num) return false;
+      }
+    }
+
+    return true;
+  }
+
+  /// Generate sudoku puzzle and solution
+  /// difficulty: 1=Easy, 2=Medium, 3=Hard (for Free Play)
+  /// cellsToRemove: directly specify cells to remove (for Campaign)
+  /// More cells removed = harder puzzle (max 80, keep at least 1)
+  ({List<List<int>> puzzle, List<List<int>> solution}) generatePuzzleWithSolution({
+    int? difficulty,
+    int? cellsToRemove,
+  }) {
+    final solution = generateSolution();
+    final puzzle = solution.map((row) => List<int>.from(row)).toList();
+
+    final toRemove = (cellsToRemove ??
+        (switch (difficulty ?? 2) {
+          1 => 32 + _random.nextInt(7), // Easy: remove 32-38 cells
+          3 => 55 + _random.nextInt(8), // Hard: remove 55-62 cells
+          _ => 45 + _random.nextInt(8), // Medium: remove 45-52 cells
+        }))
+        .clamp(20, 80);
+
+    int removed = 0;
+    int attempts = 0;
+    final maxAttempts = (toRemove * 5).clamp(200, 800);
+
+    while (removed < toRemove && attempts < maxAttempts) {
+      final row = _random.nextInt(9);
+      final col = _random.nextInt(9);
+
+      if (puzzle[row][col] != 0) {
+        final backup = puzzle[row][col];
+        puzzle[row][col] = 0;
+
+        // Ensure puzzle still has unique solution (simplified: only check solvable)
+        if (_hasUniqueSolution(puzzle)) {
+          removed++;
+        } else {
+          puzzle[row][col] = backup;
+        }
+      }
+      attempts++;
+    }
+
+    return (puzzle: puzzle, solution: solution);
+  }
+
+  /// Campaign mode: generate puzzle by mode and level
+  /// mode: 1=Easy, 2=Medium, 3=Hard
+  /// level: 1-999, difficulty increases every 9 levels
+  ({List<List<int>> puzzle, List<List<int>> solution}) generateForLevel({
+    required int mode,
+    required int level,
+  }) {
+    // Every 9 levels form a tier, 111 tiers total (tier 0~110)
+    final tier = (level - 1) ~/ 9;
+    final tierFactor = tier / 111; // 0.0 ~ 0.99
+
+    // Base and max cells to remove per mode (level 1 vs level 999)
+    final (base, maxRemoved) = switch (mode) {
+      1 => (28, 42), // Easy
+      3 => (54, 70), // Hard
+      _ => (42, 58), // Medium
+    };
+
+    final cellsToRemove = (base +
+            (tierFactor * (maxRemoved - base)).round() +
+            _random.nextInt(4))
+        .clamp(20, 80);
+
+    return generatePuzzleWithSolution(cellsToRemove: cellsToRemove);
+  }
+
+  /// Generate puzzle (legacy API)
+  List<List<int>> generatePuzzle({int difficulty = 2}) {
+    return generatePuzzleWithSolution(difficulty: difficulty).puzzle;
+  }
+
+  /// Check if puzzle has unique solution (simplified: only check solvable)
+  bool _hasUniqueSolution(List<List<int>> grid) {
+    final copy = grid.map((row) => List<int>.from(row)).toList();
+    return _solve(copy);
+  }
+}
+/// Sudoku validator - checks if placement is valid
+class SudokuValidator {
+  /// Check if placing a number at the given position is valid
+  static bool isValidPlacement(
+    List<List<int>> grid,
+    int row,
+    int col,
+    int num,
+  ) {
+    if (num < 1 || num > 9) return false;
+
+    // Check row
+    for (int x = 0; x < 9; x++) {
+      if (x != col && grid[row][x] == num) return false;
+    }
+
+    // Check column
+    for (int x = 0; x < 9; x++) {
+      if (x != row && grid[x][col] == num) return false;
+    }
+
+    // Check 3x3 box
+    final startRow = row - row % 3;
+    final startCol = col - col % 3;
+    for (int i = 0; i < 3; i++) {
+      for (int j = 0; j < 3; j++) {
+        final r = startRow + i;
+        final c = startCol + j;
+        if ((r != row || c != col) && grid[r][c] == num) return false;
+      }
+    }
+
+    return true;
+  }
+
+  /// Check if the entire sudoku is correctly completed
+  static bool isComplete(List<List<int>> grid) {
+    for (int row = 0; row < 9; row++) {
+      for (int col = 0; col < 9; col++) {
+        if (grid[row][col] == 0) return false;
+        if (!isValidPlacement(grid, row, col, grid[row][col])) return false;
+      }
+    }
+    return true;
+  }
+}
+import 'package:flutter/material.dart';
+
+class NumberPad extends StatelessWidget {
+  const NumberPad({
+    super.key,
+    required this.onNumberTap,
+    required this.onClear,
+    required this.onNotes,
+    this.isNotesMode = false,
+    this.enabled = true,
+  });
+
+  final void Function(int number) onNumberTap;
+  final VoidCallback onClear;
+  final VoidCallback onNotes;
+  final bool isNotesMode;
+  final bool enabled;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Calculate button size from available width to avoid overflow
+        final availableWidth = constraints.maxWidth - 32; // minus padding
+        final buttonSize = (availableWidth / 9).clamp(32.0, 56.0);
+        final actionButtonSize = (buttonSize * 0.8).clamp(28.0, 48.0);
+
+        return Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  for (int i = 1; i <= 9; i++)
+                    _PadButton(
+                      label: i.toString(),
+                      size: buttonSize,
+                      onTap: enabled ? () => onNumberTap(i) : null,
+                    ),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _PadButton(
+                    label: '✎',
+                    size: actionButtonSize,
+                    onTap: enabled ? onNotes : null,
+                    isHighlighted: isNotesMode,
+                  ),
+                  const SizedBox(width: 16),
+                  _PadButton(
+                    label: '⌫',
+                    size: actionButtonSize,
+                    onTap: enabled ? onClear : null,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _PadButton extends StatelessWidget {
+  const _PadButton({
+    required this.label,
+    required this.size,
+    required this.onTap,
+    this.isHighlighted = false,
+  });
+
+  final String label;
+  final double size;
+  final VoidCallback? onTap;
+  final bool isHighlighted;
+
+  @override
+  Widget build(BuildContext context) {
+    return Opacity(
+      opacity: onTap != null ? 1 : 0.5,
+      child: Material(
+        color: isHighlighted ? Colors.blue.shade100 : Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12),
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Center(
+              child: Text(
+                label,
+                style: TextStyle(
+                  fontSize: size * 0.4,
+                  fontWeight: FontWeight.w600,
+                  color: isHighlighted ? Colors.blue.shade700 : Colors.black87,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+import 'package:flutter/material.dart';
+
+/// Sudoku grid layout constants
+abstract final class _GridConstants {
+  static const double minCellSize = 28.0;
+  static const double maxCellSize = 42.0;
+  static const double minFontSize = 14.0;
+  static const double maxFontSize = 22.0;
+  static const double minHintFontSize = 10.0;
+  static const double maxHintFontSize = 14.0;
+  static const double gridPadding = 16.0;
+  static const double separatorSpace = 30.0;
+  static const int gridSize = 9;
+  static const int blockSize = 3;
+}
+
+class SudokuGrid extends StatelessWidget {
+  const SudokuGrid({
+    super.key,
+    required this.grid,
+    required this.initialPuzzle,
+    required this.selectedCell,
+    required this.onCellTap,
+    this.errorCells = const {},
+    this.correctCells = const {},
+  });
+
+  final List<List<int>> grid;
+  final List<List<int>> initialPuzzle;
+  final ({int row, int col})? selectedCell;
+  final void Function(int row, int col) onCellTap;
+  final Set<({int row, int col})> errorCells;
+  final Set<({int row, int col})> correctCells;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final maxW = constraints.maxWidth.isInfinite ? 400.0 : constraints.maxWidth;
+        final availableWidth = maxW - _GridConstants.gridPadding;
+        final cellSize = ((availableWidth - _GridConstants.separatorSpace) / _GridConstants.gridSize)
+            .clamp(_GridConstants.minCellSize, _GridConstants.maxCellSize);
+        final fontSize = (cellSize * 0.5).clamp(_GridConstants.minFontSize, _GridConstants.maxFontSize);
+        final hintFontSize = (cellSize * 0.35).clamp(_GridConstants.minHintFontSize, _GridConstants.maxHintFontSize);
+
+        return Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.1),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              for (int row = 0; row < _GridConstants.gridSize; row++) ...[
+                if (row > 0 && row % _GridConstants.blockSize == 0)
+                  const _GridSeparator(isHorizontal: true),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (int col = 0; col < _GridConstants.gridSize; col++) ...[
+                      if (col > 0 && col % _GridConstants.blockSize == 0)
+                        _GridSeparator(isHorizontal: false, height: cellSize),
+                      RepaintBoundary(
+                        child: _SudokuCell(
+                          key: ValueKey('cell-$row-$col'),
+                          value: grid[row][col],
+                          fontSize: fontSize,
+                          hintFontSize: hintFontSize,
+                          cellSize: cellSize,
+                          isFixed: initialPuzzle[row][col] != 0,
+                          isSelected: selectedCell?.row == row && selectedCell?.col == col,
+                          hasError: errorCells.contains((row: row, col: col)),
+                          isCorrect: correctCells.contains((row: row, col: col)),
+                          onTap: () => onCellTap(row, col),
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ],
+            ],
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _GridSeparator extends StatelessWidget {
+  const _GridSeparator({
+    required this.isHorizontal,
+    this.height,
+  });
+
+  final bool isHorizontal;
+  final double? height;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: isHorizontal ? 2 : 0,
+        horizontal: isHorizontal ? 0 : 2,
+      ),
+      child: Container(
+        width: isHorizontal ? null : 2,
+        height: isHorizontal ? 2 : height,
+        color: Colors.grey.shade400,
+      ),
+    );
+  }
+}
+
+class _SudokuCell extends StatelessWidget {
+  const _SudokuCell({
+    super.key,
+    required this.value,
+    required this.fontSize,
+    required this.hintFontSize,
+    required this.cellSize,
+    required this.isFixed,
+    required this.isSelected,
+    required this.hasError,
+    required this.isCorrect,
+    required this.onTap,
+  });
+
+  final int value;
+  final double fontSize;
+  final double hintFontSize;
+  final double cellSize;
+  final bool isFixed;
+  final bool isSelected;
+  final bool hasError;
+  final bool isCorrect;
+  final VoidCallback onTap;
+
+  static const _animationDuration = Duration(milliseconds: 150);
+  static const _cellMargin = EdgeInsets.all(1);
+  static const _borderRadius = 4.0;
+
+  bool get _isHighlighted => hasError || isCorrect || isSelected;
+
+  (Color fill, Color border, Color text) get _colors {
+    if (hasError) return (Colors.red.shade100, Colors.red, Colors.red.shade800);
+    if (isCorrect) return (Colors.green.shade100, Colors.green, Colors.green.shade800);
+    if (isSelected) return (Colors.blue.shade100, Colors.blue, Colors.blue.shade700);
+    return (Colors.transparent, Colors.grey.shade300, Colors.black87);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final (fill, border, text) = _colors;
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: _animationDuration,
+        width: cellSize,
+        height: cellSize,
+        margin: _cellMargin,
+        decoration: BoxDecoration(
+          color: fill,
+          border: Border.all(
+            color: border,
+            width: _isHighlighted ? 2 : 0.5,
+          ),
+          borderRadius: BorderRadius.circular(_borderRadius),
+        ),
+        child: Center(
+          child: value > 0
+              ? Text(
+                  value.toString(),
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    fontWeight: isFixed ? FontWeight.bold : FontWeight.w500,
+                    color: isFixed ? Colors.black87 : text,
+                  ),
+                )
+              : null,
+        ),
+      ),
+    );
+  }
+}

@@ -2,7 +2,7 @@ import 'app_localizations.dart';
 
 class AppLocalizationsZh extends AppLocalizations {
   @override
-  String get appTitle => 'CS 数独';
+  String get appTitle => '数独-可爱桔';
 
   @override
   String get sudoku => '数独';
