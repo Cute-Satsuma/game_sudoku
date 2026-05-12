@@ -1,0 +1,56 @@
+# Google Play 商店文案（请按需删改品牌名）
+
+说明：安装后名称当前为「CS Sudoku」。若要与「数独-可爱桔」统一，请同步修改 `android/app/src/main/res/values/strings.xml` 的 `app_name` 并重新出包。
+
+--------------------------------------------------------------------------------
+## 中文（默认语言示例）
+
+【完整标题】（最多 30 个字符；含空格与符号）
+CS Sudoku — 经典数独
+
+【简短说明】（最多 80 个字符）
+免费无广告数独：自由练习与 999 关闯关，即时对错提示，支持多语言。
+
+【完整说明】（建议 4000 字符内，以下为示例，可粘贴到 Play 后分行排版）
+
+挑战经典 9×9 数独，锻炼逻辑与专注力。
+
+【玩法】
+• 自由模式：简单 / 中等 / 困难三档难度，无限新题，随时重开。
+• 闯关模式：999 关进阶谜题，三档难度分区，进度自动保存；计时与错误次数挑战你的稳定性。
+• 即时反馈：填入数字后立刻校验，正确为绿、错误为红，方便纠错。
+• 内置规则说明，新手也能快速上手。
+
+【特点】
+界面简洁、操作流畅；单机可玩，无广告干扰（以实际上架包为准）。支持多种界面语言，适合通勤与碎片时间。
+
+【说明】
+本游戏为益智休闲类应用。欢迎使用「设置」或系统应用信息中的清除数据管理本地进度。系统要求以 Google Play 设备目录为准；当前构建最低支持约 Android 7.0（API 24）及以上。
+
+--------------------------------------------------------------------------------
+## English (optional second listing)
+
+【Title】
+CS Sudoku — Classic Puzzle
+
+【Short description】
+Free sudoku: free play & 999 campaign levels, instant validation, multiple languages.
+
+【Full description】
+
+Play classic 9×9 Sudoku — calm, focused, and easy to pick up.
+
+Features:
+• Free mode: three difficulty levels and unlimited fresh puzzles.
+• Campaign mode: 999 handcrafted-style levels across three tiers; autosaved progress; timer and mistake limits on selected modes.
+• Instant feedback: correct entries highlight in green, incorrect in red.
+• Built-in rules for beginners.
+
+A clean, offline-friendly puzzle game for short sessions. Language options available in-app.
+
+Clear app data from system settings if you want to reset local progress.
+
+--------------------------------------------------------------------------------
+## 品牌推广语（Promo text，可选，中文）
+
+绿色主题经典数独，自由+闯关双模式，单机畅玩。
