@@ -79,6 +79,8 @@
 
 用户可根据需求点击「自由模式」或「闯关模式」按钮进入对应游戏模式。点击「数独规则说明」可随时查阅游戏规则与操作说明，适合新手用户学习。
 
+@@IMG:screenshots/01_main.png@@
+
 3.3 界面适配
 
 主界面在不同设备上会自动适配屏幕尺寸。手机竖屏时，按钮垂直排列；平板或横屏时，布局可能有所调整，以提供最佳显示效果。界面采用绿色为主色调，白色与灰色为辅，确保视觉舒适、易于辨识。
@@ -102,9 +104,13 @@
 
 用户选择难度后，系统调用 SudokuGenerator.generatePuzzleWithSolution(difficulty) 生成题目并立即开始游戏。
 
+@@IMG:screenshots/02_free_difficulty.png@@
+
 4.3 游戏进行
 
 自由模式无错误次数限制，可无限次尝试。游戏过程中可点击 AppBar 设置图标切换难度并重新生成题目，或点击返回键退出。每局均为新题目。
+
+@@IMG:screenshots/03_free_playing.png@@
 
 4.4 题目生成算法
 
@@ -129,13 +135,19 @@
 
 用户点击卡片后进入 LevelSelectScreen，传入 mode 与 modeName。
 
+@@IMG:screenshots/04_campaign_tiers.png@@
+
 5.3 关卡列表
 
 关卡列表（LevelSelectScreen）顶部显示「简单·第N关」或「中等·第N关」等，下方为「已解锁至第N关，点击关卡开始」。白色「开始第N关」按钮（FilledButton.icon，play_arrow 图标）可直接开始当前关卡。下方为 6 列网格，每行 6 关，共 167 行可滚动，展示关卡 1～999。已解锁关卡为浅绿色（green.shade50），当前关卡为深绿色（#2E7D32）白字高亮，未解锁为灰色（grey.shade200）不可点击。
 
+@@IMG:screenshots/05_level_grid.png@@
+
 5.4 开始游戏
 
 用户点击「开始第N关」或已解锁的关卡格子，进入 GameScreen(campaignMode, campaignLevel)。闯关模式错误次数上限为 10 次（_maxErrors=10），用尽后弹出「游戏结束」对话框，显示「错误次数已达 10 次，本关失败」及用时，可选择「返回」或「重试」。
+
+@@IMG:screenshots/06_campaign_game.png@@
 
 5.5 进度保存
 
@@ -181,6 +193,8 @@ generateForLevel(mode, level) 中，tier=(level-1)~/9，共 111 个档位（tier
 
 主界面通过 _showRulesDialog 弹出 AlertDialog，标题为「数独规则说明」，内容包含：游戏目标（rulesGoal、rulesGoalDesc）、基本规则（rulesBasic、rulesBasicItems）、操作说明（rulesOps、rulesOpsItems）。底部「知道了」按钮（rulesGotIt）关闭弹窗。文案来自 AppLocalizations 多语言，随系统语言自动切换。
 
+@@IMG:screenshots/07_rules_dialog.png@@
+
 7.2 计时器
 
 GameScreen 使用 Timer.periodic(Duration(seconds: 1)) 每秒更新 _elapsedSeconds，完成或失败时 _timer?.cancel() 停止。显示格式为 _formatTime 的 MM:SS。完成时 _showWinDialog 展示「恭喜完成！」及「你用了 MM:SS 完成数独！」。
@@ -196,6 +210,10 @@ CampaignProgress 使用 GetStorage，box 名为 campaign_progress，键 campaign
 7.5 完成与失败提示
 
 完成时 _showWinDialog：闯关模式调用 CampaignProgress.unlockNextLevel 解锁下一关，对话框提供「确定」「下一关」；自由模式提供「确定」「新游戏」。失败时 _showGameOverDialog 显示「错误次数已达 10 次，本关失败」及用时，提供「返回」「重试」。
+
+@@IMG:screenshots/08_win_dialog.png@@
+
+@@IMG:screenshots/09_gameover_dialog.png@@
 
 
 第八章 常见问题
@@ -260,7 +278,7 @@ V1.0（首次发布）：支持自由模式与闯关模式，999 关三档难度
 
 附录 F 界面截图说明
 
-本操作说明书建议配合实际软件界面截图使用。截图应包含：主界面（渐变绿背景、数独标题、经典数字逻辑游戏、自由模式/闯关模式按钮、数独规则说明）；闯关模式档位选择（简单绿色笑脸、中等蓝色中性、困难红色哭脸卡片）；关卡列表（6 列网格、已解锁至第N关、开始第N关按钮）；游戏界面（9×9 棋盘、错误 2/10、计时器、数字键盘、绿色/红色反馈）；规则说明 AlertDialog；完成/失败对话框。截图以应用宝素材中的 screenshot_01～06 为参考。
+正文各章已嵌入界面截图（见「软著素材/screenshots/」目录，文件名 01_main.png～09_gameover_dialog.png，清单见同目录「截图说明.txt」）。须使用本软件真实运行画面，保证主界面、自由模式（选难度与对局）、闯关模式（档位、关卡列表、对局含错误次数与计时）、规则说明弹窗、胜利与失败对话框等流程完整、图像清晰。若审查要求提高分辨率，可换用更高像素截图后重新运行「生成文档鉴别材料PDF.py」生成 PDF。
 
 
 附录 G 版本与兼容性

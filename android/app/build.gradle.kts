@@ -1,4 +1,5 @@
 import java.util.Properties
+import java.io.File
 import java.io.FileInputStream
 
 plugins {
@@ -8,7 +9,8 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreDir = file("${System.getProperty("user.home")}/Documents/app_release")
+val keystorePropertiesFile = File(keystoreDir, "key.properties")
 val keystoreProperties = Properties()
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
@@ -43,7 +45,7 @@ android {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"].toString()
             keyPassword = keystoreProperties["keyPassword"].toString()
-            storeFile = file(keystoreProperties["storeFile"].toString())
+            storeFile = file(File(keystoreDir, keystoreProperties["storeFile"].toString()))
             storePassword = keystoreProperties["storePassword"].toString()
         }
     }

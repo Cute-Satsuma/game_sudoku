@@ -45,5 +45,4 @@ app.*.map.json
 /android/app/release
 
 # Keystore and signing config (keep these secure, never commit!)
-/android/key.properties
-/android/app/upload-keystore.jks
+# 密钥文件已移至 ~/Documents/app_release/
