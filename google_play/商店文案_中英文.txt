@@ -1,0 +1,72 @@
+# Google Play 商店文案
+
+安装名与商店标题：英文 Sudoku Caju，中文 数独 Caju。Caju 不翻译，放在品类词后面。包名 com.bytemyth.game_sudoku 不要改。
+标题 / 短简介不要写 Free、No Ads、免费、无广告、Best、#1。
+
+--------------------------------------------------------------------------------
+## 中文（zh-CN）
+
+【完整标题】（最多 30 个字符）
+数独 Caju
+
+【简短说明】（最多 80 个字符）
+经典九宫数独：自由与999关闯关，笔记与自动填写，主题配色，错误醒目、填对锁定
+
+【完整说明】
+
+经典 9×9 数独，棋盘清晰、对错立刻可见，自由练习和闯关两种玩法。
+
+【自由模式】
+• 简单、中等、困难三档，随时生成新题。
+• 累计错误但不因此失败，适合放松练习。
+
+【闯关模式】
+• 999 关、三档分区，进度保存在本机。
+• 每局计时；闯关每关 10 次错误上限。
+
+【主题】
+• 跟随系统 / 浅色 / 深色，多种配色、纸质纹理、字体与图标。
+• 首次启动可先选外观再开始玩。
+
+【操作】
+• 点格子再点数字。错误数字醒目红色；填对后锁定。
+• 笔记模式：空白格小数字固定九宫位。魔棒可自动填入选中格，长按进入点格即填。
+• 内置规则说明。首页带动态品牌标。
+
+可离线游玩。进度只存在本机。界面语言可在设置中更改。
+
+隐私政策：https://cute-satsuma.github.io/privacy/sudoku-caju/
+
+--------------------------------------------------------------------------------
+## English (en-US，默认 listing)
+
+【Title】
+Sudoku Caju
+
+【Short description】
+Classic 9×9 Sudoku: free play, 999 campaign, notes, autofill assist, themes
+
+【Full description】
+
+Play classic 9×9 Sudoku with a calm board, clear feedback, and two ways to play.
+
+Free play
+• Easy, medium, and hard. New unique puzzles whenever you want.
+• No campaign lock: practice at your pace.
+
+Campaign
+• 999 levels in three tiers. Progress saves on this device.
+• Timer on every game. Campaign uses a 10-error limit per level.
+
+Themes
+• System, light, or dark. Color palettes, paper grain, fonts, and icon styles.
+• First launch helps you pick a look before you start.
+
+Play
+• Tap a cell, then a number. Wrong digits show in bold red; correct entries lock.
+• Notes mode places pencil marks in fixed 3×3 spots. Wand autofill fills the selected cell; long-press enables tap-to-fill.
+• Built-in rules guide. Animated home logo.
+
+Works offline. Progress stays on your device. Change language in Settings.
+
+Privacy policy: https://cute-satsuma.github.io/privacy/sudoku-caju/

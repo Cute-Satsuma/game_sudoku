@@ -1,0 +1,3 @@
+/* App name - Chinese */
+CFBundleDisplayName = "数独 Caju";
+CFBundleName = "数独 Caju";

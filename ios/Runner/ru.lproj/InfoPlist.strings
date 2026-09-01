@@ -1,0 +1,3 @@
+/* App name - Russian */
+CFBundleDisplayName = "Судоку Caju";
+CFBundleName = "Судоку Caju";
