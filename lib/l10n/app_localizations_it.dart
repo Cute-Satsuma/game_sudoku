@@ -152,6 +152,32 @@ class AppLocalizationsIt extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'Suggerimenti';
+  @override
+  String get hintModesHint =>
+      'Dopo aver scelto una cella, i colori sul tastierino indicano le cifre ancora libere in quell’area.';
+  @override
+  String get hintBox => 'Suggerimenti del riquadro';
+  @override
+  String get hintBoxHint =>
+      'Segna le cifre ancora libere nel riquadro 3×3 della cella scelta.';
+  @override
+  String get hintColumn => 'Suggerimenti della colonna';
+  @override
+  String get hintColumnHint =>
+      'Segna le cifre ancora libere nella colonna della cella scelta.';
+  @override
+  String get hintRow => 'Suggerimenti della riga';
+  @override
+  String get hintRowHint =>
+      'Segna le cifre ancora libere nella riga della cella scelta.';
+  @override
+  String get hintLegendBox => 'Blocco';
+  @override
+  String get hintLegendColumn => 'Col.';
+  @override
+  String get hintLegendRow => 'Riga';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

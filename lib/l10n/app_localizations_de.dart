@@ -151,6 +151,32 @@ class AppLocalizationsDe extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'Hinweise';
+  @override
+  String get hintModesHint =>
+      'Nach dem Auswählen eines Feldes markieren Farben auf den Zahlenfeldern noch freie Ziffern in diesem Bereich.';
+  @override
+  String get hintBox => 'Block-Hinweise';
+  @override
+  String get hintBoxHint =>
+      'Zeigt Ziffern, die im 3×3-Block des gewählten Feldes noch frei sind.';
+  @override
+  String get hintColumn => 'Spalten-Hinweise';
+  @override
+  String get hintColumnHint =>
+      'Zeigt Ziffern, die in der Spalte des gewählten Feldes noch frei sind.';
+  @override
+  String get hintRow => 'Zeilen-Hinweise';
+  @override
+  String get hintRowHint =>
+      'Zeigt Ziffern, die in der Zeile des gewählten Feldes noch frei sind.';
+  @override
+  String get hintLegendBox => 'Block';
+  @override
+  String get hintLegendColumn => 'Spalte';
+  @override
+  String get hintLegendRow => 'Zeile';
+  @override
   String get themeTitle => 'Design';
   @override
   String get themeAppearance => 'Darstellung';

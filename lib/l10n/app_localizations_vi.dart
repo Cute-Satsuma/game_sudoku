@@ -150,6 +150,32 @@ class AppLocalizationsVi extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'Gợi ý';
+  @override
+  String get hintModesHint =>
+      'Khi chọn một ô, màu trên bàn phím số cho biết các chữ số còn trống trong phạm vi đó.';
+  @override
+  String get hintBox => 'Gợi ý khối';
+  @override
+  String get hintBoxHint =>
+      'Đánh dấu các chữ số còn trống trong khối 3×3 của ô đang chọn.';
+  @override
+  String get hintColumn => 'Gợi ý cột';
+  @override
+  String get hintColumnHint =>
+      'Đánh dấu các chữ số còn trống trong cột của ô đang chọn.';
+  @override
+  String get hintRow => 'Gợi ý hàng';
+  @override
+  String get hintRowHint =>
+      'Đánh dấu các chữ số còn trống trong hàng của ô đang chọn.';
+  @override
+  String get hintLegendBox => 'Khối';
+  @override
+  String get hintLegendColumn => 'Cột';
+  @override
+  String get hintLegendRow => 'Hàng';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

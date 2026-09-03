@@ -151,6 +151,29 @@ class AppLocalizationsUr extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'اشارے';
+  @override
+  String get hintModesHint =>
+      'سیل منتخب کرنے کے بعد نمبر پیڈ رنگ سے بتاتا ہے کہ اس حصے میں کون سے ہندسے ابھی خالی ہیں۔';
+  @override
+  String get hintBox => 'باکس اشارے';
+  @override
+  String get hintBoxHint => 'منتخب سیل کے 3×3 باکس میں ابھی خالی ہندسے دکھاتا ہے۔';
+  @override
+  String get hintColumn => 'کالم اشارے';
+  @override
+  String get hintColumnHint => 'منتخب سیل کے کالم میں ابھی خالی ہندسے دکھاتا ہے۔';
+  @override
+  String get hintRow => 'قطار اشارے';
+  @override
+  String get hintRowHint => 'منتخب سیل کی قطار میں ابھی خالی ہندسے دکھاتا ہے۔';
+  @override
+  String get hintLegendBox => 'باکس';
+  @override
+  String get hintLegendColumn => 'کالم';
+  @override
+  String get hintLegendRow => 'قطار';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

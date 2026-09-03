@@ -151,6 +151,32 @@ class AppLocalizationsTr extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'İpuçları';
+  @override
+  String get hintModesHint =>
+      'Bir hücre seçildiğinde sayı tuşlarındaki renkler, o alandaki hâlâ boş rakamları gösterir.';
+  @override
+  String get hintBox => 'Kutu ipuçları';
+  @override
+  String get hintBoxHint =>
+      'Seçilen hücrenin 3×3 kutusunda hâlâ boş olan rakamları işaretler.';
+  @override
+  String get hintColumn => 'Sütun ipuçları';
+  @override
+  String get hintColumnHint =>
+      'Seçilen hücrenin sütununda hâlâ boş olan rakamları işaretler.';
+  @override
+  String get hintRow => 'Satır ipuçları';
+  @override
+  String get hintRowHint =>
+      'Seçilen hücrenin satırında hâlâ boş olan rakamları işaretler.';
+  @override
+  String get hintLegendBox => 'Kutu';
+  @override
+  String get hintLegendColumn => 'Sütun';
+  @override
+  String get hintLegendRow => 'Satır';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

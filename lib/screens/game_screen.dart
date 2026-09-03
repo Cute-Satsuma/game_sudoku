@@ -6,9 +6,11 @@ import 'package:flutter/services.dart';
 import '../l10n/app_localizations.dart';
 import '../services/campaign_progress.dart';
 import '../services/game_settings_controller.dart';
+import '../sudoku/hint_candidates.dart';
 import '../sudoku/sudoku_generator.dart';
 import '../sudoku/sudoku_validator.dart';
 import '../theme/hero_background.dart';
+import '../widgets/hint_accents.dart';
 import '../widgets/number_pad.dart';
 import '../widgets/quick_number_pad.dart';
 import '../widgets/sudoku_grid.dart';
@@ -121,14 +123,14 @@ class _GameScreenState extends State<GameScreen> {
       return;
     }
 
-    final isSameCell =
-        _selectedCell?.row == row && _selectedCell?.col == col;
+    final isSameCell = _selectedCell?.row == row && _selectedCell?.col == col;
 
     setState(() {
       if (isSameCell) {
         // Second tap on the selected cell opens the quick pad (if enabled).
-        final quickPadEnabled =
-            GameSettingsScope.of(context).quickNumberPadEnabled;
+        final quickPadEnabled = GameSettingsScope.of(
+          context,
+        ).quickNumberPadEnabled;
         if (quickPadEnabled) {
           _quickPadVisible = true;
         }
@@ -395,10 +397,26 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  CellHintCandidates _visibleHints(GameSettingsController settings) {
+    final cell = _selectedCell;
+    if (cell == null || !settings.anyHintEnabled) {
+      return CellHintCandidates.empty;
+    }
+    final raw = HintCandidates.forCell(_grid, cell.row, cell.col);
+    return CellHintCandidates(
+      box: settings.hintBoxEnabled ? raw.box : const <int>{},
+      column: settings.hintColumnEnabled ? raw.column : const <int>{},
+      row: settings.hintRowEnabled ? raw.row : const <int>{},
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final onHero = cajuOnHeroForeground(context);
+    final gameSettings = GameSettingsScope.of(context);
+    final hints = _visibleHints(gameSettings);
+    final l10n = AppLocalizations.of(context);
     return Container(
       decoration: cajuHeroDecoration(context),
       child: Scaffold(
@@ -443,97 +461,124 @@ class _GameScreenState extends State<GameScreen> {
                     ],
                   ),
                 )
-              : Stack(
-                  clipBehavior: Clip.none,
+              : Column(
                   children: [
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return SingleChildScrollView(
-                          padding: const EdgeInsets.all(16),
-                          child: ConstrainedBox(
-                            constraints: BoxConstraints(
-                              minHeight: constraints.maxHeight - 32,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 2,
-                                    right: 2,
-                                    bottom: 10,
+                    Expanded(
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          LayoutBuilder(
+                            builder: (context, constraints) {
+                              return SingleChildScrollView(
+                                padding: const EdgeInsets.all(16),
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    minHeight: constraints.maxHeight - 32,
                                   ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      _GameStatusBadge(
-                                        icon: Icons.schedule_rounded,
-                                        value: _formatTime(_elapsedSeconds),
-                                        accentColor: colorScheme.primary,
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                          left: 2,
+                                          right: 2,
+                                          bottom: 10,
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            _GameStatusBadge(
+                                              icon: Icons.schedule_rounded,
+                                              value: _formatTime(
+                                                _elapsedSeconds,
+                                              ),
+                                              accentColor: colorScheme.primary,
+                                            ),
+                                            const Spacer(),
+                                            _GameStatusBadge(
+                                              icon: Icons.close_rounded,
+                                              value: _isCampaign
+                                                  ? '$_errorCount/$_maxErrors'
+                                                  : '$_errorCount/∞',
+                                              accentColor: _errorCount > 0
+                                                  ? colorScheme.error
+                                                  : colorScheme
+                                                        .onSurfaceVariant,
+                                              isAlert: _errorCount > 0,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      const Spacer(),
-                                      _GameStatusBadge(
-                                        icon: Icons.close_rounded,
-                                        value: _isCampaign
-                                            ? '$_errorCount/$_maxErrors'
-                                            : '$_errorCount/∞',
-                                        accentColor: _errorCount > 0
-                                            ? colorScheme.error
-                                            : colorScheme.onSurfaceVariant,
-                                        isAlert: _errorCount > 0,
+                                      SudokuGrid(
+                                        key: _boardKey,
+                                        grid: _grid,
+                                        initialPuzzle: _initialPuzzle,
+                                        selectedCell: _selectedCell,
+                                        selectedCellKey: _selectedCellKey,
+                                        onCellTap: _onCellTap,
+                                        errorCells: _errorCells,
+                                        notes: _notes,
+                                      ),
+                                      const SizedBox(height: 24),
+                                      NumberPad(
+                                        onNumberTap: _onNumberTap,
+                                        onClear: _onClear,
+                                        onNotes: _onNotes,
+                                        onAutoFill: _onAutoFill,
+                                        onAutoFillLongPress:
+                                            _onAutoFillLongPress,
+                                        isNotesMode: _isNotesMode,
+                                        isAutoFillMode: _isAutoFillMode,
+                                        notedNumbers:
+                                            _isNotesMode &&
+                                                _selectedCell != null
+                                            ? _notes[_selectedCell!
+                                                  .row][_selectedCell!.col]
+                                            : const {},
+                                        hintBoxNumbers: hints.box,
+                                        hintColumnNumbers: hints.column,
+                                        hintRowNumbers: hints.row,
+                                        enabled: !(_isCampaign && _isGameOver),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SudokuGrid(
-                                  key: _boardKey,
-                                  grid: _grid,
-                                  initialPuzzle: _initialPuzzle,
-                                  selectedCell: _selectedCell,
-                                  selectedCellKey: _selectedCellKey,
-                                  onCellTap: _onCellTap,
-                                  errorCells: _errorCells,
-                                  notes: _notes,
-                                ),
-                                const SizedBox(height: 24),
-                                NumberPad(
-                                  onNumberTap: _onNumberTap,
-                                  onClear: _onClear,
-                                  onNotes: _onNotes,
-                                  onAutoFill: _onAutoFill,
-                                  onAutoFillLongPress: _onAutoFillLongPress,
-                                  isNotesMode: _isNotesMode,
-                                  isAutoFillMode: _isAutoFillMode,
-                                  notedNumbers:
-                                      _isNotesMode && _selectedCell != null
-                                      ? _notes[_selectedCell!.row]
-                                            [_selectedCell!.col]
-                                      : const {},
-                                  enabled: !(_isCampaign && _isGameOver),
-                                ),
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                    if (_quickPadVisible &&
-                        _selectedCell != null &&
-                        GameSettingsScope.of(context).quickNumberPadEnabled)
-                      Positioned.fill(
-                        child: _QuickPadOverlay(
-                          cellKey: _selectedCellKey,
-                          boardKey: _boardKey,
-                          cellRow: _selectedCell!.row,
-                          onDismiss: _hideQuickPad,
-                          onNumberTap: _onQuickPadNumberTap,
-                          highlightedNumbers:
-                              _isNotesMode && _selectedCell != null
-                              ? _notes[_selectedCell!.row][_selectedCell!.col]
-                              : const {},
-                        ),
+                          if (_quickPadVisible &&
+                              _selectedCell != null &&
+                              gameSettings.quickNumberPadEnabled)
+                            Positioned.fill(
+                              child: _QuickPadOverlay(
+                                cellKey: _selectedCellKey,
+                                boardKey: _boardKey,
+                                cellRow: _selectedCell!.row,
+                                onDismiss: _hideQuickPad,
+                                onNumberTap: _onQuickPadNumberTap,
+                                highlightedNumbers:
+                                    _isNotesMode && _selectedCell != null
+                                    ? _notes[_selectedCell!.row][_selectedCell!
+                                          .col]
+                                    : const {},
+                                hintBoxNumbers: hints.box,
+                                hintColumnNumbers: hints.column,
+                                hintRowNumbers: hints.row,
+                              ),
+                            ),
+                        ],
                       ),
+                    ),
+                    HintLegend(
+                      boxEnabled: gameSettings.hintBoxEnabled,
+                      columnEnabled: gameSettings.hintColumnEnabled,
+                      rowEnabled: gameSettings.hintRowEnabled,
+                      boxLabel: l10n.hintLegendBox,
+                      columnLabel: l10n.hintLegendColumn,
+                      rowLabel: l10n.hintLegendRow,
+                      onTap: () => showHintModesDialog(context),
+                    ),
                   ],
                 ),
         ),
@@ -550,6 +595,9 @@ class _QuickPadOverlay extends StatefulWidget {
     required this.onDismiss,
     required this.onNumberTap,
     this.highlightedNumbers = const {},
+    this.hintBoxNumbers = const {},
+    this.hintColumnNumbers = const {},
+    this.hintRowNumbers = const {},
   });
 
   final GlobalKey cellKey;
@@ -558,6 +606,9 @@ class _QuickPadOverlay extends StatefulWidget {
   final VoidCallback onDismiss;
   final void Function(int number) onNumberTap;
   final Set<int> highlightedNumbers;
+  final Set<int> hintBoxNumbers;
+  final Set<int> hintColumnNumbers;
+  final Set<int> hintRowNumbers;
 
   @override
   State<_QuickPadOverlay> createState() => _QuickPadOverlayState();
@@ -657,6 +708,9 @@ class _QuickPadOverlayState extends State<_QuickPadOverlay> {
             child: QuickNumberPad(
               onNumberTap: widget.onNumberTap,
               highlightedNumbers: widget.highlightedNumbers,
+              hintBoxNumbers: widget.hintBoxNumbers,
+              hintColumnNumbers: widget.hintColumnNumbers,
+              hintRowNumbers: widget.hintRowNumbers,
             ),
           ),
       ],

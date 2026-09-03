@@ -152,6 +152,32 @@ class AppLocalizationsId extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'Petunjuk';
+  @override
+  String get hintModesHint =>
+      'Setelah sel dipilih, warna pada papan angka menandai digit yang masih kosong di area itu.';
+  @override
+  String get hintBox => 'Petunjuk kotak';
+  @override
+  String get hintBoxHint =>
+      'Menandai digit yang masih kosong di kotak 3×3 sel yang dipilih.';
+  @override
+  String get hintColumn => 'Petunjuk kolom';
+  @override
+  String get hintColumnHint =>
+      'Menandai digit yang masih kosong di kolom sel yang dipilih.';
+  @override
+  String get hintRow => 'Petunjuk baris';
+  @override
+  String get hintRowHint =>
+      'Menandai digit yang masih kosong di baris sel yang dipilih.';
+  @override
+  String get hintLegendBox => 'Kotak';
+  @override
+  String get hintLegendColumn => 'Kol.';
+  @override
+  String get hintLegendRow => 'Baris';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

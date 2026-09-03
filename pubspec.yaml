@@ -5,10 +5,11 @@ description: "sudoku"
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
 # Version scheme:
-#   versionName (before +): yyyyMMdd.counter  e.g. 20260901.01
-#   versionCode (after  +): yyMMdd + counter  e.g. 26090101
-# Counter is a two-digit daily sequence 01–99.
-version: 20260901.01+26090101
+#   versionName (before +): yyyyMMdd.counter.patch  e.g. 20260901.1.0
+#   versionCode (after  +): yyMMdd + counter        e.g. 26090101
+# pubspec requires MAJOR.MINOR.PATCH with no leading zeros (not 20260901.01).
+# Counter is the daily sequence 1–99; versionCode still uses two digits (01–99).
+version: 20260901.1.0+26090101
 
 environment:
   sdk: ^3.10.7

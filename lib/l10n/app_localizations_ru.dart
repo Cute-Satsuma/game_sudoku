@@ -152,6 +152,32 @@ class AppLocalizationsRu extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'Подсказки';
+  @override
+  String get hintModesHint =>
+      'После выбора клетки цвета на панели показывают цифры, которые ещё свободны в этой области.';
+  @override
+  String get hintBox => 'Подсказки блока';
+  @override
+  String get hintBoxHint =>
+      'Показывает цифры, ещё свободные в блоке 3×3 выбранной клетки.';
+  @override
+  String get hintColumn => 'Подсказки столбца';
+  @override
+  String get hintColumnHint =>
+      'Показывает цифры, ещё свободные в столбце выбранной клетки.';
+  @override
+  String get hintRow => 'Подсказки строки';
+  @override
+  String get hintRowHint =>
+      'Показывает цифры, ещё свободные в строке выбранной клетки.';
+  @override
+  String get hintLegendBox => 'Блок';
+  @override
+  String get hintLegendColumn => 'Столб.';
+  @override
+  String get hintLegendRow => 'Стр.';
+  @override
   String get themeTitle => 'Тема';
   @override
   String get themeAppearance => 'Оформление';

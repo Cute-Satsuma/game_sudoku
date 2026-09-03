@@ -149,6 +149,17 @@ abstract class AppLocalizations {
   String get gameplayTitle;
   String get quickNumberPad;
   String get quickNumberPadHint;
+  String get hintModesTitle;
+  String get hintModesHint;
+  String get hintBox;
+  String get hintBoxHint;
+  String get hintColumn;
+  String get hintColumnHint;
+  String get hintRow;
+  String get hintRowHint;
+  String get hintLegendBox;
+  String get hintLegendColumn;
+  String get hintLegendRow;
   String get themeTitle;
   String get themeAppearance;
   String get themeSystem;

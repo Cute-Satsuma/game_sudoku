@@ -151,6 +151,29 @@ class AppLocalizationsBn extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'ইঙ্গিত';
+  @override
+  String get hintModesHint =>
+      'ঘর বেছে নিলে নম্বর প্যাডে রং দিয়ে ওই এলাকায় এখনও খালি সংখ্যা দেখায়।';
+  @override
+  String get hintBox => 'বক্স ইঙ্গিত';
+  @override
+  String get hintBoxHint => 'নির্বাচিত ঘরের 3×3 বক্সে এখনও খালি সংখ্যা দেখায়।';
+  @override
+  String get hintColumn => 'কলাম ইঙ্গিত';
+  @override
+  String get hintColumnHint => 'নির্বাচিত ঘরের কলামে এখনও খালি সংখ্যা দেখায়।';
+  @override
+  String get hintRow => 'সারি ইঙ্গিত';
+  @override
+  String get hintRowHint => 'নির্বাচিত ঘরের সারিতে এখনও খালি সংখ্যা দেখায়।';
+  @override
+  String get hintLegendBox => 'বক্স';
+  @override
+  String get hintLegendColumn => 'কলাম';
+  @override
+  String get hintLegendRow => 'সারি';
+  @override
   String get themeTitle => 'থিম';
   @override
   String get themeAppearance => 'চেহারা';

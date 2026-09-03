@@ -152,6 +152,32 @@ class AppLocalizationsPt extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'Dicas';
+  @override
+  String get hintModesHint =>
+      'Ao escolher uma célula, as cores no teclado marcam os dígitos ainda livres nessa área.';
+  @override
+  String get hintBox => 'Dicas do bloco';
+  @override
+  String get hintBoxHint =>
+      'Marca os dígitos ainda livres no bloco 3×3 da célula escolhida.';
+  @override
+  String get hintColumn => 'Dicas da coluna';
+  @override
+  String get hintColumnHint =>
+      'Marca os dígitos ainda livres na coluna da célula escolhida.';
+  @override
+  String get hintRow => 'Dicas da linha';
+  @override
+  String get hintRowHint =>
+      'Marca os dígitos ainda livres na linha da célula escolhida.';
+  @override
+  String get hintLegendBox => 'Bloco';
+  @override
+  String get hintLegendColumn => 'Col.';
+  @override
+  String get hintLegendRow => 'Linha';
+  @override
   String get themeTitle => 'Tema';
   @override
   String get themeAppearance => 'Aparência';

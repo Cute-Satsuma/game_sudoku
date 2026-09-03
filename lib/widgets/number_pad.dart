@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../sudoku/hint_candidates.dart';
+import 'hint_accents.dart';
+
 class NumberPad extends StatelessWidget {
   const NumberPad({
     super.key,
@@ -11,6 +14,9 @@ class NumberPad extends StatelessWidget {
     this.isNotesMode = false,
     this.isAutoFillMode = false,
     this.notedNumbers = const {},
+    this.hintBoxNumbers = const {},
+    this.hintColumnNumbers = const {},
+    this.hintRowNumbers = const {},
     this.enabled = true,
   });
 
@@ -22,9 +28,21 @@ class NumberPad extends StatelessWidget {
   final bool isNotesMode;
   final bool isAutoFillMode;
   final Set<int> notedNumbers;
+  final Set<int> hintBoxNumbers;
+  final Set<int> hintColumnNumbers;
+  final Set<int> hintRowNumbers;
   final bool enabled;
 
   static const _gap = 6.0;
+
+  NumberHintFlags _flagsFor(int number) {
+    return NumberHintFlags.fromSets(
+      number: number,
+      box: hintBoxNumbers,
+      column: hintColumnNumbers,
+      row: hintRowNumbers,
+    );
+  }
 
   Widget _numberRow(List<int> numbers, double buttonSize) {
     return Row(
@@ -37,6 +55,7 @@ class NumberPad extends StatelessWidget {
             size: buttonSize,
             onTap: enabled ? () => onNumberTap(numbers[i]) : null,
             isHighlighted: notedNumbers.contains(numbers[i]),
+            hintFlags: _flagsFor(numbers[i]),
           ),
         ],
       ],
@@ -102,6 +121,7 @@ class _PadButton extends StatelessWidget {
     required this.onTap,
     this.onLongPress,
     this.isHighlighted = false,
+    this.hintFlags = NumberHintFlags.none,
   }) : assert(label != null || icon != null);
 
   final String? label;
@@ -110,6 +130,7 @@ class _PadButton extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onLongPress;
   final bool isHighlighted;
+  final NumberHintFlags hintFlags;
 
   @override
   Widget build(BuildContext context) {
@@ -142,20 +163,25 @@ class _PadButton extends StatelessWidget {
           child: SizedBox(
             width: size,
             height: size,
-            child: Center(
-              child: icon != null
-                  ? Icon(icon, size: size * 0.42, color: text)
-                  : Text(
-                      label!,
-                      overflow: TextOverflow.visible,
-                      style: TextStyle(
-                        fontSize: size * 0.4,
-                        fontWeight: FontWeight.w600,
-                        color: text,
-                        height: 1.0,
-                        leadingDistribution: TextLeadingDistribution.even,
-                      ),
-                    ),
+            child: Stack(
+              children: [
+                Center(
+                  child: icon != null
+                      ? Icon(icon, size: size * 0.42, color: text)
+                      : Text(
+                          label!,
+                          overflow: TextOverflow.visible,
+                          style: TextStyle(
+                            fontSize: size * 0.4,
+                            fontWeight: FontWeight.w600,
+                            color: text,
+                            height: 1.0,
+                            leadingDistribution: TextLeadingDistribution.even,
+                          ),
+                        ),
+                ),
+                Positioned.fill(child: HintAccentBars(flags: hintFlags)),
+              ],
             ),
           ),
         ),

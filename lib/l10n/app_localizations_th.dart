@@ -150,6 +150,29 @@ class AppLocalizationsTh extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'คำใบ้';
+  @override
+  String get hintModesHint =>
+      'เมื่อเลือกช่อง แป้นตัวเลขจะใช้สีบอกตัวเลขที่ยังว่างในขอบเขตนั้น';
+  @override
+  String get hintBox => 'คำใบ้ช่อง 3×3';
+  @override
+  String get hintBoxHint => 'แสดงตัวเลขที่ยังว่างในช่อง 3×3 ของช่องที่เลือก';
+  @override
+  String get hintColumn => 'คำใบ้คอลัมน์';
+  @override
+  String get hintColumnHint => 'แสดงตัวเลขที่ยังว่างในคอลัมน์ของช่องที่เลือก';
+  @override
+  String get hintRow => 'คำใบ้แถว';
+  @override
+  String get hintRowHint => 'แสดงตัวเลขที่ยังว่างในแถวของช่องที่เลือก';
+  @override
+  String get hintLegendBox => 'กล่อง';
+  @override
+  String get hintLegendColumn => 'คอลัมน์';
+  @override
+  String get hintLegendRow => 'แถว';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

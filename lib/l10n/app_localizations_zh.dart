@@ -148,6 +148,29 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String get quickNumberPadHint => '再次点击已选中的格子，可在棋盘上弹出快捷数字盘。';
   @override
+  String get hintModesTitle => '提示';
+  @override
+  String get hintModesHint =>
+      '选中格子后，数字盘会用颜色标出该范围里还可以填的数字。';
+  @override
+  String get hintBox => '宫格提示';
+  @override
+  String get hintBoxHint => '标出当前 3×3 宫格中，选中格还可填的数字。';
+  @override
+  String get hintColumn => '列提示';
+  @override
+  String get hintColumnHint => '标出当前列中，选中格还可填的数字。';
+  @override
+  String get hintRow => '行提示';
+  @override
+  String get hintRowHint => '标出当前行中，选中格还可填的数字。';
+  @override
+  String get hintLegendBox => '宫';
+  @override
+  String get hintLegendColumn => '列';
+  @override
+  String get hintLegendRow => '行';
+  @override
   String get themeTitle => '主题';
   @override
   String get themeAppearance => '外观';

@@ -150,6 +150,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => 'تلميحات';
+  @override
+  String get hintModesHint =>
+      'بعد اختيار خلية، تُظهر الألوان على لوحة الأرقام الأرقام المتاحة في ذلك النطاق.';
+  @override
+  String get hintBox => 'تلميحات المربع';
+  @override
+  String get hintBoxHint => 'تحدد الأرقام المتاحة في مربع 3×3 للخلية المختارة.';
+  @override
+  String get hintColumn => 'تلميحات العمود';
+  @override
+  String get hintColumnHint => 'تحدد الأرقام المتاحة في عمود الخلية المختارة.';
+  @override
+  String get hintRow => 'تلميحات الصف';
+  @override
+  String get hintRowHint => 'تحدد الأرقام المتاحة في صف الخلية المختارة.';
+  @override
+  String get hintLegendBox => 'مربع';
+  @override
+  String get hintLegendColumn => 'عمود';
+  @override
+  String get hintLegendRow => 'صف';
+  @override
   String get themeTitle => 'السمة';
   @override
   String get themeAppearance => 'المظهر';

@@ -150,6 +150,29 @@ class AppLocalizationsKo extends AppLocalizations {
   String get quickNumberPadHint =>
       'Tap a selected cell again to open a compact number pad on the board.';
   @override
+  String get hintModesTitle => '힌트';
+  @override
+  String get hintModesHint =>
+      '칸을 선택하면 숫자판에 해당 범위에서 아직 쓸 수 있는 숫자가 색으로 표시됩니다.';
+  @override
+  String get hintBox => '박스 힌트';
+  @override
+  String get hintBoxHint => '선택한 칸이 속한 3×3 박스에서 아직 가능한 숫자를 표시합니다.';
+  @override
+  String get hintColumn => '열 힌트';
+  @override
+  String get hintColumnHint => '선택한 칸의 열에서 아직 가능한 숫자를 표시합니다.';
+  @override
+  String get hintRow => '행 힌트';
+  @override
+  String get hintRowHint => '선택한 칸의 행에서 아직 가능한 숫자를 표시합니다.';
+  @override
+  String get hintLegendBox => '박스';
+  @override
+  String get hintLegendColumn => '열';
+  @override
+  String get hintLegendRow => '행';
+  @override
   String get themeTitle => 'Theme';
   @override
   String get themeAppearance => 'Appearance';

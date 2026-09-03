@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 
+import '../sudoku/hint_candidates.dart';
+import 'hint_accents.dart';
+
 /// Compact 3×3 number picker shown near a selected board cell.
 class QuickNumberPad extends StatelessWidget {
   const QuickNumberPad({
     super.key,
     required this.onNumberTap,
     this.highlightedNumbers = const {},
+    this.hintBoxNumbers = const {},
+    this.hintColumnNumbers = const {},
+    this.hintRowNumbers = const {},
   });
 
   final void Function(int number) onNumberTap;
   final Set<int> highlightedNumbers;
+  final Set<int> hintBoxNumbers;
+  final Set<int> hintColumnNumbers;
+  final Set<int> hintRowNumbers;
 
   static const double buttonSize = 40.0;
   static const double gap = 4.0;
@@ -17,6 +26,15 @@ class QuickNumberPad extends StatelessWidget {
 
   static double get extent =>
       padding * 2 + buttonSize * 3 + gap * 2;
+
+  NumberHintFlags _flagsFor(int number) {
+    return NumberHintFlags.fromSets(
+      number: number,
+      box: hintBoxNumbers,
+      column: hintColumnNumbers,
+      row: hintRowNumbers,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +71,7 @@ class QuickNumberPad extends StatelessWidget {
                       size: buttonSize,
                       isHighlighted:
                           highlightedNumbers.contains(row * 3 + col + 1),
+                      hintFlags: _flagsFor(row * 3 + col + 1),
                       onTap: () => onNumberTap(row * 3 + col + 1),
                     ),
                   ],
@@ -72,12 +91,14 @@ class _QuickPadButton extends StatelessWidget {
     required this.size,
     required this.onTap,
     this.isHighlighted = false,
+    this.hintFlags = NumberHintFlags.none,
   });
 
   final int number;
   final double size;
   final VoidCallback onTap;
   final bool isHighlighted;
+  final NumberHintFlags hintFlags;
 
   @override
   Widget build(BuildContext context) {
@@ -108,18 +129,23 @@ class _QuickPadButton extends StatelessWidget {
         child: SizedBox(
           width: size,
           height: size,
-          child: Center(
-            child: Text(
-              '$number',
-              overflow: TextOverflow.visible,
-              style: TextStyle(
-                fontSize: size * 0.42,
-                fontWeight: FontWeight.w600,
-                color: text,
-                height: 1.0,
-                leadingDistribution: TextLeadingDistribution.even,
+          child: Stack(
+            children: [
+              Center(
+                child: Text(
+                  '$number',
+                  overflow: TextOverflow.visible,
+                  style: TextStyle(
+                    fontSize: size * 0.42,
+                    fontWeight: FontWeight.w600,
+                    color: text,
+                    height: 1.0,
+                    leadingDistribution: TextLeadingDistribution.even,
+                  ),
+                ),
               ),
-            ),
+              Positioned.fill(child: HintAccentBars(flags: hintFlags)),
+            ],
           ),
         ),
       ),
