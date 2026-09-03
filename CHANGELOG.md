@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
-Version scheme: `yyyyMMdd.counter.patch+yyMMddcounter` (e.g. `20260903.1.0+26090301`).
+Version scheme: `x.x.x+yyMMddxx` (e.g. `1.0.0+26090302`).
+
+## [1.0.0] - 2026-09-03
+
+Play versionName reset to `x.x.x`. Same user-facing build as `20260903.1.0`.
+
+### Added
+
+- **Hint modes** — independent box, column, and row candidates marked as short capsules on the number pads
+- **Bottom toggles** — tap the compact bars under the board to turn each hint on or off (also in Settings)
 
 ## [20260903.1.0] - 2026-09-03
 
