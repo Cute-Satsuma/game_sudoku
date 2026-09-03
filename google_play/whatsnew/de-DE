@@ -1,4 +1,3 @@
-• Notizenmodus: kleine Ziffern an festen 3×3-Positionen in leeren Feldern
-• Autofill: Zauberstab füllt das gewählte Feld; langer Druck für Tippen-zum-Füllen
-• Klarere Fehler (kräftiges Rot) und gesperrte korrekte Einträge
-• Animiertes Home-Logo und klareres Brett-Feedback
+• Hinweise: noch freie Ziffern in Block, Spalte und Zeile als kurze Balken auf dem Zahlenfeld
+• Tippen Sie unten auf dem Brett auf die Balken, um jeden Hinweis ein- oder auszuschalten
+• In den Einstellungen lassen sich die drei Hinweise getrennt steuern

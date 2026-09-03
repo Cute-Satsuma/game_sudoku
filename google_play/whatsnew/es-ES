@@ -1,4 +1,3 @@
-• Modo notas: marcas en posiciones fijas 3×3 en celdas vacías
-• Autocompletar: toca la varita para rellenar la celda; mantén pulsado para rellenar al tocar
-• Errores más claros y celdas correctas bloqueadas
-• Logo animado en inicio y feedback del tablero más limpio
+• Pistas: los dígitos aún libres en recuadro, columna y fila aparecen como barras cortas en el teclado
+• Toca las barras bajo el tablero para activar o desactivar cada pista
+• En Ajustes también puedes controlar las tres pistas por separado

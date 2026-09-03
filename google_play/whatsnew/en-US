@@ -1,4 +1,3 @@
-• Working notes mode: pencil marks sit in fixed 3×3 spots in empty cells
-• Autofill assist: tap the wand to fill the selected cell; long-press for tap-to-fill mode
-• Clearer mistakes (bold red digits) and locked correct entries
-• Animated home logo with orbiting mark and softer board feedback
+• Hint modes: box, column, and row candidates light up as short bars on the number pads
+• Tap the bars at the bottom of the board to turn each hint on or off
+• Each hint can also be toggled independently in Settings

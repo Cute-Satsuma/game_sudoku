@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-Version scheme: `yyyyMMdd.counter+yyMMddcounter` (e.g. `20260901.01+26090101`).
+Version scheme: `yyyyMMdd.counter.patch+yyMMddcounter` (e.g. `20260903.1.0+26090301`).
+
+## [20260903.1.0] - 2026-09-03
+
+### Added
+
+- **Hint modes** — independent box, column, and row candidates marked as short capsules on the number pads
+- **Bottom toggles** — tap the compact bars under the board to turn each hint on or off (also in Settings)
 
 ## [20260901.01] - 2026-09-01
 

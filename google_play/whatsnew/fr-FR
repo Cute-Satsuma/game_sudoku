@@ -1,4 +1,3 @@
-• Mode notes : petites chiffres en positions fixes 3×3 dans les cases vides
-• Remplissage auto : touchez la baguette pour la case sélectionnée ; appui long pour le mode toucher-pour-remplir
-• Erreurs plus visibles et cases correctes verrouillées
-• Logo animé à l’accueil et retours plus clairs sur la grille
+• Indices : les chiffres encore libres dans le carré, la colonne et la ligne s’affichent en barres courtes
+• Touchez les barres sous la grille pour activer ou désactiver chaque indice
+• Les trois indices se règlent aussi séparément dans Réglages
